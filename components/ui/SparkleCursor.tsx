@@ -24,8 +24,7 @@ export default function LiquidCursor() {
     canvas.style.zIndex = "1";
     document.body.appendChild(canvas);
 
-    const ctx = canvas.getContext("2d", { alpha: true });
-    if (!ctx) return;
+    const ctx = canvas.getContext("2d", { alpha: true })!; // force non-null
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
@@ -49,11 +48,11 @@ export default function LiquidCursor() {
       ripplesRef.current.push({
         x,
         y,
-       r: strong ? 18 : 12,
-       a: strong ? 0.45 : 0.3,
-s: strong ? 8: 5,
-w: strong ? 9: 6,
-        hue: nextHue(), 
+        r: strong ? 18 : 12,
+        a: strong ? 0.45 : 0.3,
+        s: strong ? 8 : 5,
+        w: strong ? 9 : 6,
+        hue: nextHue(),
       });
 
       if (ripplesRef.current.length > 50) {
@@ -80,7 +79,7 @@ w: strong ? 9: 6,
 
       ctx.save();
       ctx.globalCompositeOperation = "lighter";
-      ctx.filter = "blur(0.2X )"; // less blur = faster
+      ctx.filter = "blur(0.2px)";
 
       const ripples = ripplesRef.current;
 
@@ -91,9 +90,9 @@ w: strong ? 9: 6,
         p.a -= 0.008;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI *3);
-ctx.strokeStyle = `hsla(270, 100%, 70%, ${Math.max(p.a * 1.3,0)})`;
-ctx.stroke();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.strokeStyle = `hsla(270, 100%, 70%, ${Math.max(p.a * 1.3, 0)})`;
+        ctx.stroke();
 
         if (p.a <= 0) {
           ripples.splice(i, 1);
