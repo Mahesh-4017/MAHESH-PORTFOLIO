@@ -100,7 +100,7 @@ export default function Navbar() {
 
           {/* RESUME BUTTON (PRIMARY CTA) */}
           <a
-            href="/MAHESH CV.pdf"
+            href="/Mahesh_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="relative  md:inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 px-5 py-2 text-sm font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,85,247,0.9)]"
