@@ -5,48 +5,39 @@ import Link from "next/link";
 const techStack = [
   {
     name: "HTML",
-    logo: "/icons/html.png", // HTML logo (SVG)
-    link: "https://developer.mozilla.org/en-US/docs/Web/HTML",
+    logo: "/icons/html.png",
   },
   {
     name: "CSS",
     logo: "/icons/css.png", // CSS logo (SVG)
-    link: "https://developer.mozilla.org/en-US/docs/Web/CSS",
   },
   {
     name: "JavaScript",
     logo: "/icons/javascript.png", // JS logo (SVG)
-    link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
   },
   {
     name: "React.js",
     logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg", // React logo (CDN)
-    link: "https://reactjs.org/",
   },
   {
     name: "React Native",
     logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg", // React logo (CDN)
-    link: "https://reactjs.org/",
   },
   {
     name: "Python",
     logo: "/icons/python.png", // Python logo (SVG)
-    link: "https://www.python.org/",
   },
   {
     name: "Git",
     logo: "/icons/git.png", // Git logo (SVG)
-    link: "https://git-scm.com/",
   },
   {
     name: "GitHub",
     logo: "https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg", // GitHub logo (CDN)
-    link: "https://github.com/",
   },
   {
     name: "Django",
     logo: "/icons/django.png", // Django logo (SVG)
-    link: "https://www.djangoproject.com/",
   },
   // Add more logos as needed
 ];
@@ -64,13 +55,13 @@ export default function TechStack() {
             key={tech.name}
             className="flex flex-col items-center justify-center gap-3 p-6 rounded-xl border border-gray-300 shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:scale-110"
           >
-            <Link href={tech.link} target="_blank" rel="noreferrer">
+            <div rel="noreferrer">
               <img
                 src={tech.logo}
                 alt={tech.name}
                 className="w-24 h-24 rounded-full object-contain"
               />
-            </Link>
+            </div>
             <p className="text-center text-lg font-semibold text-gray-900 mt-2">{tech.name}</p>
           </div>
         ))}

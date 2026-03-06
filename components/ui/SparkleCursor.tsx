@@ -14,7 +14,7 @@ type Ripple = {
 
 export default function LiquidCursor() {
   const ripplesRef = useRef<Ripple[]>([]);
-  const hueRef = useRef(260);
+  const hueRef = useRef(0);
 
   useEffect(() => {
     const canvas = document.createElement("canvas");
