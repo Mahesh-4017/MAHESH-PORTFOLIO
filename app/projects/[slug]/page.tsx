@@ -23,9 +23,9 @@ export default async function ProjectDetailPage({
 
       <p className="mt-2 text-white/70">{project.summary}</p>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 text-white flex flex-wrap gap-2">
         {project.stack.map((tech) => (
-          <Badge key={tech}>{tech}</Badge>
+          <Badge className="text-white" key={tech}>{tech}</Badge>
         ))}
       </div>
 

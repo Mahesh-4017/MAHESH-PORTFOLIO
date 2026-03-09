@@ -89,7 +89,7 @@ export default function ProjectGalleryFlip({ images, title }: Props) {
                 src={images[safeActive]}
                 alt={`${title} ${safeActive + 1}`}
                 fill
-                className="object-cover"
+                className="object-contain"
                 sizes="(min-width: 1024px) 900px, 100vw"
               />
             </motion.div>

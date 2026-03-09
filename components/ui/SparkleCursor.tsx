@@ -40,7 +40,7 @@ export default function LiquidCursor() {
     window.addEventListener("resize", resize);
 
     function nextHue() {
-      hueRef.current = (hueRef.current + 4) % 360;
+      hueRef.current = (hueRef.current + 4) % 460;
       return hueRef.current;
     }
 
@@ -48,10 +48,10 @@ export default function LiquidCursor() {
       ripplesRef.current.push({
         x,
         y,
-        r: strong ? 19 : 12,
-        a: strong ? 0.55 : 0.5,
-        s: strong ? 8 : 5,
-        w: strong ? 9 : 6,
+        r: strong ? 15 : 12,
+        a: strong ? 0.5 : 0.5,
+        s: strong ? 7 : 4,
+        w: strong ? 8 : 5,
         hue: nextHue(),
       });
 
@@ -79,7 +79,7 @@ export default function LiquidCursor() {
 
       ctx.save();
       ctx.globalCompositeOperation = "lighter";
-      ctx.filter = "blur(0.2px)";
+      ctx.filter = "blur(0.1px)";
 
       const ripples = ripplesRef.current;
 
