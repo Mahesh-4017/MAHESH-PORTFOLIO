@@ -1,59 +1,97 @@
 export type Project = {
   title: string
   slug: string
-  summary: string
+  description: string
+  year: string
+  role: string
+
   stack: string[]
+  features: string[]
+
   highlights: string[]
+
+  cover: string
   images: string[]
+
   githubUrl?: string
   liveUrl?: string
 }
 
 export const projects: Project[] = [
   {
-    title: "Job Portal UI",
-    slug: "job-portal-ui",
-    summary:
-      "A responsive job listing UI with search, filters, and detail pages.",
+    title: "Job Portal Platform",
+    slug: "job-portal-platform",
 
-    stack: ["Next.js", "React", "Tailwind"],
+    description:
+      "A modern job portal interface with advanced search, filter system, and dynamic job detail pages designed for scalability.",
+
+    year: "2025",
+    role: "Frontend Developer",
+
+    stack: ["Next.js", "React", "Tailwind", "TypeScript"],
+
+    features: [
+      "Job search with filters",
+      "Dynamic job detail pages",
+      "Pagination system",
+      "Responsive UI",
+      "SEO optimized pages"
+    ],
 
     highlights: [
-      "Responsive layout",
-      "Reusable components",
-      "Clean routing",
+      "Reusable component architecture",
+      "Clean routing structure",
+      "Optimized Lighthouse performance"
     ],
+
+    cover: "/projects/jobportal-cover.png",
 
     images: [
       "/projects/jobportal-1.png",
       "/projects/jobportal-2.png",
-      "/projects/jobportal-3.png",
+      "/projects/jobportal-3.png"
     ],
 
     githubUrl: "https://github.com/yourname/job-portal-ui",
 
-    liveUrl: "https://example.com",
+    liveUrl: "https://example.com"
   },
 
   {
-    title: "Portfolio Website",
-    slug: "portfolio-website",
-    summary:
-      "Personal portfolio with projects, about, and contact form.",
+    title: "Developer Portfolio",
+    slug: "developer-portfolio",
 
-    stack: ["Next.js", "Tailwind"],
+    description:
+      "A modern developer portfolio showcasing projects, skills, and contact information with animated UI sections.",
+
+    year: "2026",
+    role: "Full Stack Developer",
+
+    stack: ["Next.js", "Tailwind", "Framer Motion"],
+
+    features: [
+      "Animated UI sections",
+      "Project gallery",
+      "Contact form",
+      "SEO optimized structure"
+    ],
 
     highlights: [
-      "Fast Lighthouse scores",
-      "Simple content structure",
+      "Clean design system",
+      "Fast performance",
+      "Reusable components"
     ],
+
+    cover: "/projects/portfolio-cover.png",
 
     images: [
       "/projects/portfolio-1.png",
       "/projects/portfolio-2.png",
-      "/projects/portfolio-3.png",
+      "/projects/portfolio-3.png"
     ],
 
     githubUrl: "https://github.com/yourname/portfolio",
-  },
+
+    liveUrl: "https://example.com"
+  }
 ]
