@@ -1,18 +1,17 @@
+import { ReactNode } from "react"
+
 export type Project = {
+  summary: ReactNode
   title: string
   slug: string
   description: string
   year: string
   role: string
-
   stack: string[]
   features: string[]
-
   highlights: string[]
-
   cover: string
   images: string[]
-
   githubUrl?: string
   liveUrl?: string
 }
@@ -22,8 +21,7 @@ export const projects: Project[] = [
     title: "Job Portal Platform",
     slug: "job-portal-platform",
 
-    description:
-      "A modern job portal interface with advanced search, filter system, and dynamic job detail pages designed for scalability.",
+    description: "A modern job portal interface with advanced search, filter system, and dynamic job detail pages designed for scalability.",
 
     year: "2025",
     role: "Frontend Developer",
@@ -54,15 +52,15 @@ export const projects: Project[] = [
 
     githubUrl: "https://github.com/yourname/job-portal-ui",
 
-    liveUrl: "https://example.com"
+    liveUrl: "https://example.com",
+    summary: undefined
   },
 
   {
     title: "Developer Portfolio",
     slug: "developer-portfolio",
 
-    description:
-      "A modern developer portfolio showcasing projects, skills, and contact information with animated UI sections.",
+    description: "A modern developer portfolio showcasing projects, skills, and contact information with animated UI sections.",
 
     year: "2026",
     role: "Full Stack Developer",
@@ -92,6 +90,7 @@ export const projects: Project[] = [
 
     githubUrl: "https://github.com/yourname/portfolio",
 
-    liveUrl: "https://example.com"
+    liveUrl: "https://example.com",
+    summary: undefined
   }
 ]
