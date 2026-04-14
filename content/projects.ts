@@ -119,6 +119,7 @@ export const projects: Project[] = [
       "/Clinic-6.png",
       "/Clinic-7.png",
     ],
+    
     githubUrl: "https://github.com/Mahesh-4017/Clinic-Website-UI-HTML-CSS-",
     liveUrl: "https://clinic-website-ui.netlify.app/",
     summary: undefined,
