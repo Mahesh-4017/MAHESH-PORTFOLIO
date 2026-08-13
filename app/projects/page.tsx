@@ -1,23 +1,17 @@
-import Link from "next/link";
-import { projects } from "@/content/projects";
+"use client";
+
+import InteractiveProjectsShowcase from "@/components/projects/InteractiveProjectsShowcase";
+import { motion } from "framer-motion";
 
 export default function ProjectsPage() {
   return (
-    <main className="max-w-5xl mx-auto py-12 text-white">
-      <h1 className="text-3xl font-semibold">Projects</h1>
-
-      <div className="mt-8 grid gap-6">
-        {projects.map((p) => (
-          <Link
-            key={p.slug}
-            href={`/projects/${p.slug}`}
-            className="border border-white/10 p-6 rounded-xl hover:bg-white/5"
-          >
-            <h2 className="text-xl font-semibold">{p.title}</h2>
-            <p className="text-white/60 mt-2">{p.summary}</p>
-          </Link>
-        ))}
-      </div>
-    </main>
+    <motion.main
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="max-w-7xl mx-auto px-4 py-12 text-white"
+    >
+      <InteractiveProjectsShowcase />
+    </motion.main>
   );
 }

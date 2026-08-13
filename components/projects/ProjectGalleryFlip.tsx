@@ -9,10 +9,9 @@ type Props = {
   images: string[];
   title: string;
 };
-
 export default function ProjectGalleryFlip({ images, title }: Props) {
-  const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [active, setActive] = useState(0);
   const timerRef = useRef<number | null>(null);
 
   const imageCount = images?.length ?? 0;
@@ -63,8 +62,7 @@ export default function ProjectGalleryFlip({ images, title }: Props) {
   if (!imageCount) return null;
 
   return (
-    <div
-      className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]"
+    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] cursor-default"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -78,12 +76,12 @@ export default function ProjectGalleryFlip({ images, title }: Props) {
           <AnimatePresence mode="wait">
             <motion.div
               key={images[safeActive]}
-              initial={{ opacity: 0, rotateY: -90, scale: 0.96 }}
-              animate={{ opacity: 1, rotateY: 0, scale: 1 }}
-              exit={{ opacity: 0, rotateY: 90, scale: 0.96 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
               className="absolute inset-0"
-              style={{ transformStyle: "preserve-3d" }}
+              /* Simplified animation: no 3D transform */
             >
               <Image
                 src={images[safeActive]}

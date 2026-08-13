@@ -1,8 +1,13 @@
+// Server Component (no 'use client')
 import Container from "@/components/layout/Container";
 import { Badge } from "@/components/ui/Badge";
 import { notFound } from "next/navigation";
 import ProjectGallery from "@/components/projects/ProjectGalleryFlip";
 import { projects, type Project } from "@/content/projects";
+import Image from "next/image";
+
+// Note: motion removed; using CSS transitions instead
+
 
 export default async function ProjectDetailPage({
   params,
@@ -19,9 +24,21 @@ export default async function ProjectDetailPage({
 
   return (
     <Container className="py-12">
-      <h1 className="text-3xl font-semibold text-white">{project.title}</h1>
-
-      <p className="mt-2 text-white/70">{project.summary}</p>
+    <section className="relative mb-8 overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-xl">
+      <div className="relative aspect-[16/9]">
+        <Image
+          src={images?.[0] ?? "/placeholder.png"}
+          alt={`${project.title} hero`}
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+        <h1 className="absolute bottom-4 left-4 text-3xl font-bold text-white">
+          {project.title}
+        </h1>
+      </div>
+      <p className="p-6 text-white/80 text-lg leading-relaxed">{project.description}</p>
+    </section>
 
       <div className="mt-4 text-white flex flex-wrap gap-2">
         {project.stack.map((tech) => (

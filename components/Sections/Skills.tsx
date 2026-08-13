@@ -4,15 +4,15 @@ import { motion } from "framer-motion";
 import { Code2, Wrench, Layers3 } from "lucide-react";
 
 const skills = {
-  Frontend: ["HTML", "CSS", "JavaScript", "React", "Next.js", "Tailwind"],
-  Tools: ["Git", "GitHub", "VS Code", "Postman"],
-  Basics: ["Responsive UI", "API integration", "Component design"],
+  Languages: ["HTML5", "CSS3", "JavaScript", "TypeScript", "Python"],
+  "Frameworks & Stack": ["Next.js", "React", "Tailwind CSS", "Django", "Node.js", "Express"],
+  "Dev Databases & Tools": ["Git", "GitHub", "MongoDB", "Firebase", "VS Code", "Postman"],
 };
 
 const groupIcons = {
-  Frontend: Code2,
-  Tools: Wrench,
-  Basics: Layers3,
+  Languages: Code2,
+  "Frameworks & Stack": Layers3,
+  "Dev Databases & Tools": Wrench,
 };
 
 export default function Skills() {
