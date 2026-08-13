@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { Code2, Wrench, Layers3 } from "lucide-react";
 
 const skills = {
-  Languages: ["HTML5", "CSS3", "JavaScript", "TypeScript", "Python"],
-  "Frameworks & Stack": ["Next.js", "React", "Tailwind CSS", "Django", "Node.js", "Express"],
+  Languages: ["HTML5", "CSS3", "JavaScript", "TypeScript"],
+  "Frameworks & Stack": ["Next.js", "React", "Tailwind CSS", "Node.js", "Express"],
   "Dev Databases & Tools": ["Git", "GitHub", "MongoDB", "Firebase", "VS Code", "Postman"],
 };
 

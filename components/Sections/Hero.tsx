@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Code2, Gauge } from "lucide-react";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 
 type HeroProps = {
   name?: string;
@@ -16,8 +17,6 @@ const SKILLS = [
   "React",
   "JavaScript",
   "TypeScript",
-  "Python",
-  "Django",
   "Node.js",
   "Tailwind CSS",
 ];
@@ -116,24 +115,56 @@ const processTransparentImage = (src: string): Promise<string> => {
         }
       }
 
-      // Modify alpha of visited background pixels with a soft edge transition
+      // Create edge arrays to track outline pixels for erosion and feathering
+      const edge1 = new Uint8Array(width * height);
+      const edge2 = new Uint8Array(width * height);
+
+      // Find edge1: subject pixels (visited === 0) adjacent to background (visited === 1)
+      for (let y = 1; y < height - 1; y++) {
+        for (let x = 1; x < width - 1; x++) {
+          const idx = y * width + x;
+          if (visited[idx] === 0) {
+            if (
+              visited[idx - 1] === 1 ||
+              visited[idx + 1] === 1 ||
+              visited[idx - width] === 1 ||
+              visited[idx + width] === 1
+            ) {
+              edge1[idx] = 1;
+            }
+          }
+        }
+      }
+
+      // Find edge2: subject pixels (visited === 0 and edge1 === 0) adjacent to edge1
+      for (let y = 2; y < height - 2; y++) {
+        for (let x = 2; x < width - 2; x++) {
+          const idx = y * width + x;
+          if (visited[idx] === 0 && edge1[idx] === 0) {
+            if (
+              edge1[idx - 1] === 1 ||
+              edge1[idx + 1] === 1 ||
+              edge1[idx - width] === 1 ||
+              edge1[idx + width] === 1
+            ) {
+              edge2[idx] = 1;
+            }
+          }
+        }
+      }
+
+      // Modify alpha of visited background pixels and apply erosion/feathering to edge pixels
       for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
           const vIdx = y * width + x;
+          const pIdx = vIdx * 4;
+
           if (visited[vIdx] === 1) {
-            const pIdx = vIdx * 4;
-            const r = data[pIdx];
-            const g = data[pIdx + 1];
-            const b = data[pIdx + 2];
-            const dist = Math.sqrt((r - targetR) ** 2 + (g - targetG) ** 2 + (b - targetB) ** 2);
-            
-            const minDist = 10;
-            if (dist <= minDist) {
-              data[pIdx + 3] = 0;
-            } else {
-              const alphaFactor = (dist - minDist) / (maxDist - minDist);
-              data[pIdx + 3] = Math.max(0, Math.min(255, Math.round(data[pIdx + 3] * alphaFactor)));
-            }
+            data[pIdx + 3] = 0;
+          } else if (edge1[vIdx] === 1) {
+            data[pIdx + 3] = 0;
+          } else if (edge2[vIdx] === 1) {
+            data[pIdx + 3] = Math.round(data[pIdx + 3] * 0.3);
           }
         }
       }
@@ -149,17 +180,44 @@ const processTransparentImage = (src: string): Promise<string> => {
 
 export default function Hero({
   name = "Mahesh",
-  role = "Frontend Developer",
+  role = "Full Stack Developer",
   summary = "I build fast web products with clean UI, predictable code, and real performance. No bloated libraries, no messy hacks.",
 }: HeroProps) {
   const [processedSuit, setProcessedSuit] = useState("/images/mahesh-suit.jpg");
   const [processedRacer, setProcessedRacer] = useState("/images/mahesh-racer.jpg");
-  const [isHovered, setIsHovered] = useState(false);
+  const [persona, setPersona] = useState<"dev" | "racer">("dev");
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [12, -12]), { stiffness: 150, damping: 22 });
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-12, 12]), { stiffness: 150, damping: 22 });
+
+  const widget1X = useSpring(useTransform(x, [-0.5, 0.5], [-15, 15]), { stiffness: 150, damping: 22 });
+  const widget1Y = useSpring(useTransform(y, [-0.5, 0.5], [-15, 15]), { stiffness: 150, damping: 22 });
+
+  const widget2X = useSpring(useTransform(x, [-0.5, 0.5], [15, -15]), { stiffness: 150, damping: 22 });
+  const widget2Y = useSpring(useTransform(y, [-0.5, 0.5], [15, -15]), { stiffness: 150, damping: 22 });
 
   useEffect(() => {
     processTransparentImage("/images/mahesh-suit.jpg").then(setProcessedSuit);
     processTransparentImage("/images/mahesh-racer.jpg").then(setProcessedRacer);
   }, []);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const normX = (e.clientX - rect.left) / width - 0.5;
+    const normY = (e.clientY - rect.top) / height - 0.5;
+    x.set(normX);
+    y.set(normY);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   return (
     <section className="relative overflow-hidden bg-black text-white">
@@ -176,7 +234,7 @@ export default function Hero({
         <div className="absolute -bottom-56 -right-56 h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.18),transparent_60%)] opacity-30 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-12 px-4 py-8 sm:px-6 md:gap-14 md:px-6 md:py-16 lg:grid-cols-2">
+      <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-12 px-4 py-8 sm:px-6 md:gap-14 md:px-6 md:py-1 lg:grid-cols-2">
         {/* LEFT PANEL */}
         <div className="order-1 flex flex-col justify-center">
           <div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] text-white/75 backdrop-blur sm:text-xs">
@@ -222,48 +280,245 @@ export default function Hero({
           </div>
         </div>
 
-        {/* RIGHT PANEL (INCREASED SIZE & CLEAN TRANSPARENT BACKGROUND) */}
-        <div className="order-2 relative flex items-center justify-center min-h-[580px]">
-          {/* Sizable frame block containing the cut-out portraits - Completely borderless, no background color */}
-          <div
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className="relative h-[580px] w-full max-w-[440px] overflow-hidden group transition-all duration-700 flex items-center justify-center"
-          >
-            {/* Hover Image (Racer) with Liquid "Throw" circular clip-path transition */}
-            <img
-              src={processedRacer}
-              alt="Mahesh Racing Mode"
-              style={{
-                clipPath: isHovered ? "circle(135% at 50% 50%)" : "circle(0% at 50% 85%)",
-                transition: "clip-path 1.1s cubic-bezier(0.25, 1, 0.3, 1), transform 1.1s cubic-bezier(0.25, 1, 0.3, 1)",
-              }}
-              className="absolute inset-0 h-full w-auto mx-auto object-contain object-bottom scale-95 opacity-100"
+        {/* RIGHT PANEL (3D PERSPECTIVE CARD DECK & FLOATING WIDGETS) */}
+        <div className="order-2 relative flex items-center justify-center min-h-[650px] lg:justify-end select-none">
+          {/* Dynamic Background Glow circle that shifts color depending on persona */}
+          <div className="absolute -inset-4 -z-10 flex items-center justify-center pointer-events-none">
+            <div
+              className={`h-[380px] w-[380px] rounded-full blur-[80px] opacity-40 transition-all duration-1000 ${persona === "dev"
+                ? "bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600"
+                : "bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500"
+                }`}
             />
+          </div>
 
-            {/* Default Image (Suit) */}
-            <img
-              src={processedSuit}
-              alt="Mahesh Developer"
+          {/* Perspective Wrapper Container */}
+          <div className="relative w-full max-w-[420px] flex items-center justify-center" style={{ perspective: "1000px" }}>
+
+            {/* Main Interactive 3D Card */}
+            <motion.div
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => setPersona(persona === "dev" ? "racer" : "dev")}
               style={{
-                transition: "transform 1.1s cubic-bezier(0.25, 1, 0.3, 1), opacity 0.7s ease",
+                rotateX: rotateX,
+                rotateY: rotateY,
+                transformStyle: "preserve-3d",
               }}
-              className={`absolute inset-0 h-full w-auto mx-auto object-contain object-bottom ${
-                isHovered ? "opacity-0 scale-90" : "opacity-100 scale-100"
-              }`}
-            />
+              className={`relative h-[560px] w-full rounded-[2.5rem] border p-6 flex flex-col justify-between overflow-visible transition-all duration-500 shadow-2xl cursor-pointer ${persona === "dev"
+                ? "border-cyan-500/20 bg-gradient-to-b from-black/80 to-cyan-950/10 hover:border-cyan-400/40 shadow-cyan-500/5"
+                : "border-pink-500/20 bg-gradient-to-b from-black/80 to-pink-950/10 hover:border-pink-400/40 shadow-pink-500/5"
+                }`}
+            >
+              {/* Persona Tab Switcher - Floating on top of the card */}
+              <div
+                onClick={(e) => e.stopPropagation()} // Stop click from triggering parent card toggle
+                className="absolute top-5 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1 rounded-full border border-white/10 bg-black/60 p-1 backdrop-blur-md"
+              >
+                <button
+                  onClick={() => setPersona("dev")}
+                  className={`relative rounded-full px-4 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-colors duration-300 ${persona === "dev" ? "text-cyan-400" : "text-white/60 hover:text-white"
+                    }`}
+                >
+                  {persona === "dev" && (
+                    <motion.div
+                      layoutId="activeTabGlow"
+                      className="absolute inset-0 rounded-full bg-cyan-500/10 border border-cyan-500/30"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  Developer
+                </button>
+                <button
+                  onClick={() => setPersona("racer")}
+                  className={`relative rounded-full px-4 py-1.5 text-[10px] font-bold uppercase tracking-wider transition-colors duration-300 ${persona === "racer" ? "text-pink-400" : "text-white/60 hover:text-white"
+                    }`}
+                >
+                  {persona === "racer" && (
+                    <motion.div
+                      layoutId="activeTabGlow"
+                      className="absolute inset-0 rounded-full bg-pink-500/10 border border-pink-500/30"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  Racer
+                </button>
+              </div>
 
-            {/* Dynamic Status Tag */}
-            <div className="absolute bottom-6 left-6 z-20 rounded-xl border border-white/10 bg-black/60 px-4 py-2 backdrop-blur-md transition-all duration-500 group-hover:border-pink-500/30">
-              <div className="font-mono text-[10px] tracking-widest text-white/90 group-hover:hidden flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                MAHESH // DEV
+              {/* Main Image Layer Stack (cut-out portraits) */}
+              <div
+                className="absolute inset-2 rounded-[2rem] overflow-hidden bg-black/20"
+                style={{ transform: "translateZ(0px)" }}
+              >
+                {/* Developer Persona (Suit) */}
+                <motion.img
+                  src={processedSuit}
+                  alt="Mahesh Developer"
+                  animate={{
+                    opacity: persona === "dev" ? 1 : 0,
+                    scale: persona === "dev" ? 1 : 1.05,
+                  }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  className="absolute inset-0 h-full w-full object-cover object-bottom animate-none"
+                />
+
+                {/* Racer Persona (Racing Suit) */}
+                <motion.img
+                  src={processedRacer}
+                  alt="Mahesh Racer"
+                  animate={{
+                    opacity: persona === "racer" ? 1 : 0,
+                    scale: persona === "racer" ? 1 : 1.05,
+                  }}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
+                  className="absolute inset-0 h-full w-full object-cover object-bottom"
+                />
+
+                {/* Dark Vignette Overlay for Premium Contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent opacity-80" />
               </div>
-              <div className="font-mono text-[10px] tracking-widest text-pink-400 hidden group-hover:flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-pink-400 animate-ping" />
-                RACING MODE // ON
+
+              {/* Decorative HUD Elements inside the card */}
+              <div className="absolute top-5 left-5 text-[9px] font-mono text-white/30 tracking-widest uppercase pointer-events-none">
+                SYS.LOC // 2026.08
               </div>
-            </div>
+              <div className="absolute top-5 right-5 text-[9px] font-mono text-white/30 tracking-widest uppercase pointer-events-none">
+                {persona === "dev" ? "DEV_MODE" : "RACE_MODE"}
+              </div>
+
+              {/* Dynamic Status Tag (Bottom Left) */}
+              <div className="absolute bottom-6 left-6 z-20 rounded-xl border border-white/10 bg-black/75 px-4 py-2.5 backdrop-blur-md transition-all duration-300">
+                {persona === "dev" ? (
+                  <div className="font-mono text-[9px] font-semibold tracking-widest text-white/90 flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    MAHESH // SOFTWARE.EXE
+                  </div>
+                ) : (
+                  <div className="font-mono text-[9px] font-semibold tracking-widest text-pink-400 flex items-center gap-2">
+                    <span className="h-1.5 w-1.5 rounded-full bg-pink-500 animate-ping" />
+                    SPEEDMODE // ACTIVE
+                  </div>
+                )}
+              </div>
+
+              {/* Interactive Help Indicator (Bottom Right) */}
+              <div className="absolute bottom-7 right-7 z-20 font-mono text-[8px] text-white/20 uppercase tracking-widest pointer-events-none">
+                Click to flip
+              </div>
+            </motion.div>
+
+            {/* FLOATING WIDGET 1: Developer Code Config (Floats on Top-Right of Card) */}
+            <motion.div
+              style={{
+                x: widget1X,
+                y: widget1Y,
+                transform: "translateZ(50px)",
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{
+                opacity: persona === "dev" ? 1 : 0,
+                scale: persona === "dev" ? 1 : 0.8,
+                pointerEvents: persona === "dev" ? "auto" : "none",
+              }}
+              transition={{ duration: 0.4 }}
+              className="hidden sm:block absolute -right-10 bottom-12 z-20 w-64 rounded-2xl border border-cyan-500/20 bg-black/85 p-4 shadow-xl shadow-cyan-500/5 backdrop-blur-md"
+            >
+              <div className="mb-2.5 flex items-center justify-between border-b border-white/5 pb-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="h-2 w-2 rounded-full bg-red-500/80" />
+                  <span className="h-2 w-2 rounded-full bg-yellow-500/80" />
+                  <span className="h-2 w-2 rounded-full bg-green-500/80" />
+                  <span className="ml-1 text-[9px] font-mono text-white/40">mahesh.ts</span>
+                </div>
+                <Code2 size={11} className="text-cyan-400" />
+              </div>
+              <pre className="font-mono text-[10px] leading-relaxed text-white/90">
+                <div>
+                  <span className="text-pink-400 font-medium">const</span>{" "}
+                  <span className="text-cyan-400 font-medium">engineer</span> = &#123;
+                </div>
+                <div className="pl-3.5">
+                  role: <span className="text-amber-300">"Frontend"</span>,
+                </div>
+                <div className="pl-3.5">
+                  stack: [<span className="text-emerald-400">"Next"</span>,{" "}
+                  <span className="text-emerald-400">"TS"</span>],
+                </div>
+                <div className="pl-3.5">
+                  speed: <span className="text-purple-400">"Optimized"</span>,
+                </div>
+                <div className="pl-3.5">
+                  ux: <span className="text-rose-400">"Premium"</span>
+                </div>
+                <div>&#125;;</div>
+              </pre>
+            </motion.div>
+
+            {/* FLOATING WIDGET 2: Racer Telemetry Status (Floats on Bottom-Left of Card) */}
+            <motion.div
+              style={{
+                x: widget2X,
+                y: widget2Y,
+                transform: "translateZ(60px)",
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{
+                opacity: persona === "racer" ? 1 : 0,
+                scale: persona === "racer" ? 1 : 0.8,
+                pointerEvents: persona === "racer" ? "auto" : "none",
+              }}
+              transition={{ duration: 0.4 }}
+              className="hidden sm:block absolute -left-12 bottom-12 z-20 w-64 rounded-2xl border border-pink-500/20 bg-black/85 p-4 shadow-xl shadow-pink-500/5 backdrop-blur-md"
+            >
+              <div className="mb-3 flex items-center justify-between border-b border-white/5 pb-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-400 opacity-75" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-pink-500" />
+                  </span>
+                  <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-pink-400">
+                    Live Telemetry
+                  </span>
+                </div>
+                <Gauge size={11} className="text-pink-400" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-2.5">
+                <div className="rounded-xl bg-white/5 p-2 border border-white/5">
+                  <div className="font-mono text-[8px] uppercase tracking-wider text-white/40">
+                    Velocity
+                  </div>
+                  <div className="flex items-baseline gap-0.5">
+                    <span className="font-mono text-base font-bold text-white">262</span>
+                    <span className="font-mono text-[7px] text-pink-400">KM/H</span>
+                  </div>
+                </div>
+                <div className="rounded-xl bg-white/5 p-2 border border-white/5">
+                  <div className="font-mono text-[8px] uppercase tracking-wider text-white/40">
+                    Trans
+                  </div>
+                  <div className="flex items-baseline gap-0.5">
+                    <span className="font-mono text-base font-bold text-white">6</span>
+                    <span className="font-mono text-[7px] text-amber-400">GEAR</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-3">
+                <div className="mb-1 flex justify-between font-mono text-[8px] uppercase tracking-wider text-white/40">
+                  <span>Engine Speed</span>
+                  <span className="text-pink-400">11.8K RPM</span>
+                </div>
+                <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
+                  <motion.div
+                    animate={{ width: ["82%", "94%", "87%"] }}
+                    transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
+                    className="h-full rounded-full bg-gradient-to-r from-pink-500 to-amber-500"
+                  />
+                </div>
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </div>

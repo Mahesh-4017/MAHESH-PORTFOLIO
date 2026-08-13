@@ -20,14 +20,27 @@ import {
 } from "lucide-react";
 
 export default function InteractiveProjectsShowcase() {
-  const [selectedProject, setSelectedProject] = useState<Project>(projects[0]);
+  // Sort projects: liveUrl first, then github-only
+  const sortedProjects = [...projects].sort((a, b) => {
+    const hasLiveA = a.liveUrl ? 1 : 0;
+    const hasLiveB = b.liveUrl ? 1 : 0;
+    return hasLiveB - hasLiveA;
+  });
+
+  const [selectedProject, setSelectedProject] = useState<Project>(sortedProjects[0]);
   const [filter, setFilter] = useState<string>("All");
   const [viewMode, setViewMode] = useState<"live" | "specs">("live");
   const [iframeKey, setIframeKey] = useState<number>(0);
   const [activeTab, setActiveTab] = useState<string>("App.tsx");
+  const [showIframe, setShowIframe] = useState<boolean>(false);
+  const [activeDemoUrl, setActiveDemoUrl] = useState<string>("");
+  const [isSidebarHidden, setIsSidebarHidden] = useState<boolean>(true);
+
+  const demoLinks = selectedProject.demoLinks || (selectedProject.liveUrl ? [{ label: "Website", url: selectedProject.liveUrl }] : []);
+  const activeDemoLabel = demoLinks.find(d => d.url === activeDemoUrl)?.label || "Website";
 
   // Filter projects
-  const filteredProjects = projects.filter((p) => {
+  const filteredProjects = sortedProjects.filter((p) => {
     if (filter === "All") return true;
     if (filter === "Full-Stack") return p.stack.includes("Node.js") || p.stack.includes("MongoDB") || p.stack.includes("Firebase");
     if (filter === "Next.js/React") return p.stack.includes("Next.js") || p.stack.includes("React");
@@ -35,11 +48,15 @@ export default function InteractiveProjectsShowcase() {
     return true;
   });
 
-  // When selected project changes, default to live view if it has a URL, otherwise specs
+  // When selected project changes, default to first demo link if available, otherwise specs
   useEffect(() => {
-    if (selectedProject.liveUrl) {
+    setShowIframe(false);
+    const links = selectedProject.demoLinks || (selectedProject.liveUrl ? [{ label: "Website", url: selectedProject.liveUrl }] : []);
+    if (links.length > 0) {
+      setActiveDemoUrl(links[0].url);
       setViewMode("live");
     } else {
+      setActiveDemoUrl("");
       setViewMode("specs");
     }
     setIframeKey((prev) => prev + 1);
@@ -83,9 +100,10 @@ export default function InteractiveProjectsShowcase() {
       </div>
 
       {/* Main Sandbox Grid */}
-      <div className="grid gap-6 lg:grid-cols-[380px_1fr]">
+      <div className={`grid gap-6 transition-all duration-300 ${isSidebarHidden ? "grid-cols-1" : "lg:grid-cols-[380px_1fr]"}`}>
         {/* Left Side: Scrollable project list */}
-        <div className="flex flex-col gap-3 max-h-[640px] overflow-y-auto pr-1">
+        {!isSidebarHidden && (
+          <div className="flex flex-col gap-3 max-h-[640px] overflow-y-auto pr-1">
           {filteredProjects.map((p) => {
             const isSelected = selectedProject.slug === p.slug;
             return (
@@ -135,9 +153,10 @@ export default function InteractiveProjectsShowcase() {
             );
           })}
         </div>
+        )}
 
         {/* Right Side: Mock Browser Sandbox */}
-        <div className="flex flex-col rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-xl overflow-hidden shadow-2xl min-h-[580px] lg:h-[640px]">
+        <div className="flex flex-col rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-xl overflow-hidden shadow-2xl min-h-[580px] lg:h-[640px] flex-1">
           
           {/* Mock Browser Header Bar */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/10 bg-black/40 px-4 py-3 gap-3">
@@ -145,15 +164,25 @@ export default function InteractiveProjectsShowcase() {
             {/* Dots + Tab selector */}
             <div className="flex items-center gap-4">
               {/* OS Dots */}
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 shrink-0">
                 <span className="h-3 w-3 rounded-full bg-red-500/80" />
                 <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
                 <span className="h-3 w-3 rounded-full bg-emerald-500/80" />
               </div>
 
+              {/* Sidebar toggle */}
+              <button
+                onClick={() => setIsSidebarHidden(!isSidebarHidden)}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-xs font-semibold text-white/85 hover:text-white transition-all select-none"
+                title={isSidebarHidden ? "Show Projects Sidebar" : "Hide Projects Sidebar"}
+              >
+                <FolderOpen className={`h-3.5 w-3.5 transition-colors ${isSidebarHidden ? "text-white/60" : "text-purple-400"}`} />
+                <span className="hidden sm:inline">{isSidebarHidden ? "Show Projects" : "Hide Projects"}</span>
+              </button>
+
               {/* View Selector Tabs */}
               <div className="flex bg-white/5 rounded-lg p-0.5 border border-white/5">
-                {selectedProject.liveUrl && (
+                {demoLinks.length > 0 && (
                   <button
                     onClick={() => setViewMode("live")}
                     className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${
@@ -169,7 +198,7 @@ export default function InteractiveProjectsShowcase() {
                 <button
                   onClick={() => setViewMode("specs")}
                   className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold transition-all ${
-                    viewMode === "specs" || !selectedProject.liveUrl
+                    viewMode === "specs" || demoLinks.length === 0
                       ? "bg-white text-black"
                       : "text-white/70 hover:text-white"
                   }`}
@@ -182,11 +211,11 @@ export default function InteractiveProjectsShowcase() {
 
             {/* URL Display / Action controls */}
             <div className="flex items-center gap-3 flex-1 sm:justify-end">
-              {viewMode === "live" && selectedProject.liveUrl ? (
+              {viewMode === "live" && activeDemoUrl ? (
                 <>
                   <div className="flex items-center gap-2 rounded-xl bg-black/45 px-3 py-1.5 text-xs text-white/50 border border-white/5 w-full max-w-[320px] font-mono select-none overflow-hidden text-ellipsis whitespace-nowrap">
                     <Globe className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
-                    <span className="truncate">{selectedProject.liveUrl}</span>
+                    <span className="truncate">{activeDemoUrl}</span>
                   </div>
 
                   <button
@@ -206,26 +235,28 @@ export default function InteractiveProjectsShowcase() {
 
               {/* Action Buttons */}
               <div className="flex gap-2">
-                {selectedProject.liveUrl && (
-                  <a
-                    href={selectedProject.liveUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 transition text-white/80"
-                    title="Open Live Website in New Tab"
-                  >
-                    <ExternalLink className="h-3.5 w-3.5" />
-                  </a>
-                )}
                 {selectedProject.githubUrl && (
                   <a
                     href={selectedProject.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex items-center justify-center p-2 rounded-lg bg-white/5 border border-white/5 hover:bg-white/10 transition text-white/80"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition text-xs font-medium text-white/95 whitespace-nowrap"
                     title="View Source on GitHub"
                   >
-                    <Github className="h-3.5 w-3.5" />
+                    <Github className="h-3.5 w-3.5 text-white/70" />
+                    Code
+                  </a>
+                )}
+                {viewMode === "live" && activeDemoUrl && (
+                  <a
+                    href={activeDemoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-purple-500 hover:bg-purple-600 transition text-xs font-semibold text-white shadow-lg shadow-purple-500/25 whitespace-nowrap"
+                    title={`Open Live ${activeDemoLabel} in New Tab`}
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" />
+                    Open {activeDemoLabel}
                   </a>
                 )}
               </div>
@@ -233,11 +264,36 @@ export default function InteractiveProjectsShowcase() {
 
           </div>
 
+          {/* Sub-tab Bar for multi-link projects */}
+          {viewMode === "live" && demoLinks.length > 1 && (
+            <div className="flex bg-black/60 border-b border-white/10 px-4 py-2 gap-2 overflow-x-auto items-center">
+              {demoLinks.map((link) => {
+                const isActive = activeDemoUrl === link.url;
+                return (
+                  <button
+                    key={link.label}
+                    onClick={() => {
+                      setActiveDemoUrl(link.url);
+                      setIframeKey((prev) => prev + 1);
+                    }}
+                    className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200 border ${
+                      isActive
+                        ? "bg-purple-500/20 text-purple-300 border-purple-500/30"
+                        : "bg-white/5 text-white/60 border-transparent hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    <Globe className="h-3.5 w-3.5" />
+                    {link.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
           {/* Sandbox Body Content */}
           <div className="relative flex-1 bg-black/40 overflow-hidden">
             <AnimatePresence mode="wait">
-              {viewMode === "live" && selectedProject.liveUrl ? (
-                /* IFRAME VIEW */
+              {viewMode === "live" && activeDemoUrl ? (
+                /* IFRAME / LIVE PREVIEW VIEW */
                 <motion.div
                   key={`iframe-${selectedProject.slug}-${iframeKey}`}
                   initial={{ opacity: 0 }}
@@ -246,19 +302,29 @@ export default function InteractiveProjectsShowcase() {
                   className="w-full h-full relative"
                 >
                   <iframe
-                    src={selectedProject.liveUrl}
-                    className="w-full h-full bg-white"
+                    src={activeDemoUrl}
+                    className="w-full h-full bg-white border-none"
                     title={selectedProject.title}
                     sandbox="allow-scripts allow-same-origin allow-forms"
                   />
-                  {/* Floating Warning Note */}
-                  <div className="absolute bottom-4 left-4 right-4 bg-black/85 border border-white/10 rounded-xl p-3 backdrop-blur text-xs flex gap-2 items-center text-white/80 pointer-events-auto">
-                    <Info className="h-4 w-4 text-yellow-400 shrink-0" />
-                    <p className="leading-snug">
-                      If embedding is restricted by security rules, please click the 
-                      <ExternalLink className="h-3 w-3 inline mx-1.5 text-white/90" />
-                      button on the top right to open the live site in a new window.
-                    </p>
+                  
+                  {/* Floating glassmorphic helper bar */}
+                  <div className="absolute bottom-4 left-4 right-4 bg-black/85 border border-white/10 rounded-xl p-3 backdrop-blur text-xs flex flex-col sm:flex-row gap-3 items-center justify-between text-white/80 pointer-events-auto shadow-2xl z-30">
+                    <div className="flex gap-2 items-center text-left">
+                      <Info className="h-4 w-4 text-purple-400 shrink-0" />
+                      <p className="leading-snug">
+                        Loaded inside sandbox. If the website does not load due to security policies, click the button to open it in a new window.
+                      </p>
+                    </div>
+                    <a
+                      href={activeDemoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-500 hover:bg-purple-600 transition text-[11px] font-semibold text-white shadow-lg shadow-purple-500/25 whitespace-nowrap"
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" />
+                      Open In New Tab
+                    </a>
                   </div>
                 </motion.div>
               ) : (

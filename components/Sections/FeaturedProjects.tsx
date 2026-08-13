@@ -8,10 +8,8 @@ const techStack = [
   { name: "JavaScript", logo: "/icons/javascript.png" },
   { name: "React.js", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" },
   { name: "React Native", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" },
-  { name: "Python", logo: "/icons/python.png" },
   { name: "Git", logo: "/icons/git.png" },
   { name: "GitHub", logo: "https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" },
-  { name: "Django", logo: "/icons/django.png" },
 ];
 
 export default function TechStack() {

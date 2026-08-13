@@ -21,7 +21,9 @@ export default function LiquidCursor() {
     canvas.style.position = "fixed";
     canvas.style.inset = "0";
     canvas.style.pointerEvents = "none";
-    canvas.style.zIndex = "1";
+    canvas.style.zIndex = "9999";
+    canvas.style.transform = "translate3d(0, 0, 9999px)";
+    canvas.style.transformStyle = "preserve-3d";
     document.body.appendChild(canvas);
 
     const ctx = canvas.getContext("2d", { alpha: true })!; // force non-null
@@ -48,10 +50,10 @@ export default function LiquidCursor() {
       ripplesRef.current.push({
         x,
         y,
-        r: strong ? 15 : 12,
+        r: strong ? 8 : 4,
         a: strong ? 0.5 : 0.5,
-        s: strong ? 7 : 4,
-        w: strong ? 8 : 5,
+        s: strong ? 9 : 6,
+        w: strong ? 6 : 3,
         hue: nextHue(),
       });
 
@@ -87,11 +89,12 @@ export default function LiquidCursor() {
         const p = ripples[i];
 
         p.r += p.s;
-        p.a -= 0.008;
+        p.a -= 0.02;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.strokeStyle = `hsla(270, 100%, 70%, ${Math.max(p.a * 1.3, 0)})`;
+        ctx.strokeStyle = `hsla(270, 100%, 70%, ${Math.max(p.a * 1.5, 0)})`;
+        ctx.lineWidth = p.w;
         ctx.stroke();
 
         if (p.a <= 0) {

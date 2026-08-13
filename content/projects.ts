@@ -12,6 +12,8 @@ export type Project = {
   images: string[];
   githubUrl?: string;
   liveUrl?: string;
+  adminUrl?: string;
+  demoLinks?: { label: string; url: string }[];
 };
 
 export const projects: Project[] = [
@@ -43,6 +45,11 @@ export const projects: Project[] = [
     ],
     githubUrl: "https://github.com/Mahesh-4017/Ready-For-Job-Website",
     liveUrl: "https://ready-for-job-website.vercel.app/",
+    adminUrl: "https://admin.readyforjob.vercel.app/",
+    demoLinks: [
+      { label: "Website", url: "https://ready-for-job-website.vercel.app/" },
+      { label: "Admin Panel", url: "https://admin.readyforjob.vercel.app/" }
+    ],
   },
   {
     title: "PrimeCart - E-commerce Website",
@@ -52,7 +59,7 @@ export const projects: Project[] = [
     summary:
       "A global e-commerce platform featuring product lists, dynamic cart, and modern responsive design.",
     year: "2026",
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     stack: ["Next.js", "React", "Tailwind", "TypeScript"],
     features: [
       "Dynamic product grids with search & filter",
@@ -80,7 +87,7 @@ export const projects: Project[] = [
     summary:
       "A web desktop simulation of a custom OS with draggable windows, file explorer, and terminal.",
     year: "2026",
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     stack: ["Next.js", "React", "Tailwind CSS", "Framer Motion", "TypeScript"],
     features: [
       "Draggable, resizable, and stackable windows",
@@ -98,7 +105,7 @@ export const projects: Project[] = [
       "/projects/agency-cover.png"
     ],
     githubUrl: "https://github.com/Mahesh-4017/MaheshOS",
-    liveUrl: "https://mahesh-os.vercel.app/", // Falls back elegantly if not active
+    liveUrl: "https://maheshos.netlify.app/",
   },
   {
     title: "Creative Agency Website UI",
@@ -108,7 +115,7 @@ export const projects: Project[] = [
     summary:
       "A beautiful creative agency landing page showcasing modern typography, spacing, and animations.",
     year: "2025",
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     stack: ["HTML", "CSS", "JavaScript"],
     features: [
       "Pixel-perfect responsive layout grid",
@@ -136,7 +143,7 @@ export const projects: Project[] = [
     summary:
       "A clean portal interface designed for course directory navigation and student registration workflows.",
     year: "2025",
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     stack: ["Next.js", "React", "Tailwind", "TypeScript"],
     features: [
       "Dynamic student dashboard panel",
@@ -168,7 +175,7 @@ export const projects: Project[] = [
     summary:
       "A real-time job directory built on Firebase database sync and user auth controls.",
     year: "2026",
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     stack: ["React", "Firebase", "Tailwind CSS", "TypeScript"],
     features: [
       "Sub-second Firestore real-time queries",
@@ -195,7 +202,7 @@ export const projects: Project[] = [
     summary:
       "A sleek real estate showcase website with search filter panels and property galleries.",
     year: "2025",
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     stack: ["Next.js", "Tailwind CSS", "Framer Motion", "TypeScript"],
     features: [
       "Advanced property size, budget, and region filter",
@@ -223,7 +230,7 @@ export const projects: Project[] = [
     summary:
       "A vibrant food discovery and ordering UI design with interactive cart animations.",
     year: "2025",
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     stack: ["React", "Tailwind CSS", "Framer Motion", "JavaScript"],
     features: [
       "Vibrant categorised food grids",
@@ -241,7 +248,7 @@ export const projects: Project[] = [
       "/projects/travel-cover.png"
     ],
     githubUrl: "https://github.com/Mahesh-4017/Food-Website",
-    liveUrl: "https://food-website-ui.netlify.app/",
+    liveUrl: "https://foodie-ordering-01.netlify.app/",
   },
   {
     title: "Clinic Website UI",
@@ -251,7 +258,7 @@ export const projects: Project[] = [
     summary:
       "A professional medical clinic portal with booking forms and doctor directory pages.",
     year: "2025",
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     stack: ["HTML", "CSS", "JavaScript"],
     features: [
       "Medical specialty filter controls",
@@ -282,7 +289,7 @@ export const projects: Project[] = [
     summary:
       "An attractive travel landing page with destination cards and booking forms.",
     year: "2025",
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     stack: ["HTML", "CSS", "JavaScript"],
     features: [
       "Dynamic booking search interface",
@@ -310,7 +317,7 @@ export const projects: Project[] = [
     summary:
       "A modern web audio player with play/pause states and playlist grid views.",
     year: "2026",
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     features: [
       "Interactive audio control slider bar",
@@ -322,6 +329,7 @@ export const projects: Project[] = [
     cover: "/projects/music-cover.png",
     images: ["/projects/music-cover.png"],
     githubUrl: "https://github.com/Mahesh-4017/Music-Streaming-App",
+    liveUrl: "https://music-streaming-01.netlify.app/",
   },
   {
     title: "QR Code Generator",
@@ -331,7 +339,7 @@ export const projects: Project[] = [
     summary:
       "A fast, responsive tool to encode text or links into high-res downloadable QR codes.",
     year: "2025",
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     stack: ["JavaScript", "HTML", "CSS"],
     features: [
       "Instant client-side QR generation",
@@ -352,13 +360,14 @@ export const projects: Project[] = [
     summary:
       "A simple catalog structure with product grids, filters, and shopping list states.",
     year: "2025",
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     stack: ["HTML", "CSS", "JavaScript"],
     features: ["Grid-aligned product items", "Responsive navigation menu", "Interactive cart item counter"],
     highlights: ["Beginner-friendly clean template", "Optimized raw CSS styles", "Responsive screen grid design"],
     cover: "/projects/ecommerce-basic.png",
     images: ["/projects/ecommerce-basic.png"],
     githubUrl: "https://github.com/Mahesh-4017/Ecommerce-website",
+    liveUrl: "https://ecomerse545445.netlify.app/",
   },
   {
     title: "Mahesh Portfolio",
@@ -368,7 +377,7 @@ export const projects: Project[] = [
     summary:
       "Personal portfolio showcasing work, skills, and contact pathways with modern design tokens.",
     year: "2026",
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     stack: ["Next.js", "React", "Tailwind CSS", "TypeScript", "Framer Motion"],
     features: [
       "Dynamic Interactive Showcase",
@@ -380,5 +389,6 @@ export const projects: Project[] = [
     cover: "/projects/portfolio-cover.png",
     images: ["/projects/portfolio-cover.png"],
     githubUrl: "https://github.com/Mahesh-4017/MAHESH-PORTFOLIO",
+    liveUrl: "https://mahesh-portfolio-01.netlify.app/",
   },
 ];

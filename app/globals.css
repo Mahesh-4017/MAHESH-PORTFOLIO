@@ -2,15 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+html,
+body {
   height: 100%;
   scroll-behavior: smooth;
   background-color: black;
 }
 
-.links{
+.links {
   color: white;
 }
+
 /* Hide scrollbar but keep scroll working */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -19,4 +21,28 @@ html, body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Hide Netlify feedback drawer and comment widgets */
+#netlify-status-indicator,
+#netlify-drawer,
+.netlify-drawer,
+.netlify-feedback-button,
+#netlify-comment-button,
+iframe[src*="netlify"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Hide scrollbar globally but keep scrolling */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, Safari */
 }

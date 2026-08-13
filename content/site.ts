@@ -1,6 +1,6 @@
 export const site = {
   name: "Mahesh",
-  role: "Frontend Developer",
+  role: "Full Stack Developer",
   tagline: "I build fast, clean web apps with React and Next.js.",
   location: "India",
   email: "sain903481@gmail.com",

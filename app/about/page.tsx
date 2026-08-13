@@ -10,7 +10,7 @@ import {
   useTransform,
   MotionValue,
 } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 type Section = {
   kicker: string;
@@ -24,8 +24,16 @@ const SECTIONS: Section[] = [
   {
     kicker: "01",
     title: "Who I am",
-    desc: `I am ${site.name}, a ${site.role}. I build responsive interfaces with React and Next.js.`,
-    badges: ["React", "Next.js", "Tailwind", "JavaScript"],
+    desc: `I’m a passionate Full Stack Developer who enjoys turning ideas into modern, responsive, and user-friendly web applications. I have a strong interest in both frontend and backend development, allowing me to build complete web solutions from concept to deployment.
+
+On the frontend, I work with technologies such as HTML, CSS, JavaScript, React, and modern UI frameworks to create clean, interactive, and responsive user experiences. On the backend, I develop reliable and scalable applications using technologies such as Node.js, Express, PHP, and databases like MongoDB and MySQL.
+
+I enjoy solving complex problems, learning new technologies, and continuously improving my development skills. I focus on writing clean, maintainable code and building applications that are efficient, secure, and easy to use.
+
+I believe that good development is not only about writing code but also about understanding users’ needs and creating solutions that provide real value. I’m always excited to work on challenging projects, collaborate with others, and transform creative ideas into functional digital products.
+
+Beyond engineering, I focus on performance optimization, caching patterns, API security, and responsive layouts to ensure high-performance deployments. My goal is to continue growing as a developer while creating innovative web experiences that make a meaningful impact.`,
+    badges: ["React", "Next.js", "Tailwind", "JavaScript", "Node.js", "Express", "MongoDB", "MySQL", "PHP"],
   },
   {
     kicker: "02",
@@ -63,9 +71,14 @@ const SECTIONS: Section[] = [
       "React",
       "React Native",
       "Next.js",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "MySQL",
+      "PHP",
       "Git",
       "GitHub",
-      "Django",
+      "Firebase",
     ],
   },
   {
@@ -87,6 +100,30 @@ const SECTIONS: Section[] = [
       "If you want a portfolio, landing page, admin panel, or full app, I can build it cleanly.",
     bullets: ["Freelance", "Full time", "Remote", "Project based"],
   },
+  {
+    kicker: "07",
+    title: "Frequently Asked Questions",
+    desc: "Here are some quick answers to common questions about my development workflow, stack, and availability.",
+  },
+];
+
+const FAQS = [
+  {
+    question: "What is your primary development stack?",
+    answer: "I specialize in the MERN/PERN stack (MongoDB, Express, React, Node.js) and Next.js / TypeScript. I also build backend systems using SQL databases (MySQL) and PHP, and integrate Firebase for real-time applications."
+  },
+  {
+    question: "Do you handle both frontend and backend development?",
+    answer: "Yes! As a Full Stack Developer, I design databases, build secure REST APIs, and develop high-performance frontend interfaces with fluid animations and responsive layouts."
+  },
+  {
+    question: "How do you optimize web application performance?",
+    answer: "I focus on image optimization (lossless compression, modern formats), server-side rendering (SSR), API response caching, and minimizing bundle sizes to ensure fast load times."
+  },
+  {
+    question: "Are you open to freelance projects or full-time remote roles?",
+    answer: "Yes, I am available for freelance contracts, part-time collaborations, and full-time remote positions. Let's connect through the Contact page!"
+  }
 ];
 
 function SnakeBackground({
@@ -176,6 +213,7 @@ function RainbowOrb({
 export default function AboutPage() {
   const reduced = useReducedMotion();
   const pageRef = useRef<HTMLDivElement | null>(null);
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: pageRef,
@@ -202,8 +240,7 @@ export default function AboutPage() {
           </h1>
 
           <p className="mt-6 text-lg text-white/70 max-w-xl mx-auto">
-            {site.role}. I build modern web apps with React, Next.js and scalable
-            backend systems. Scroll to see details.
+            {site.role}. I build modern, responsive interfaces and robust backend databases to power complete web solutions.
           </p>
 
           <motion.div
@@ -236,9 +273,9 @@ export default function AboutPage() {
                 <motion.div
                   initial={reduced ? false : { opacity: 0, y: 18 }}
                   whileInView={reduced ? {} : { opacity: 1, y: 0 }}
-                  viewport={{ amount: 0.55, once: false }}
+                  viewport={{ amount: 0.3, once: false }}
                   transition={{ duration: 0.6 }}
-                  className="w-full mx-auto max-w-3xl rounded-3xl border border-white/10 bg-black/40 p-8 backdrop-blur"
+                  className="w-full mx-auto max-w-3xl rounded-3xl border border-white/10 bg-black/70 p-8 backdrop-blur-md"
                 >
                   <div className="flex items-center gap-3">
                     <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/80">
@@ -254,14 +291,14 @@ export default function AboutPage() {
                     {s.title}
                   </h2>
 
-                  <p className="mt-4 max-w-2xl text-white/70">{s.desc}</p>
+                  <p className="mt-4 max-w-2xl text-white/70 whitespace-pre-line text-sm leading-relaxed">{s.desc}</p>
 
                   {s.bullets?.length ? (
                     <ul className="mt-6 grid gap-2 text-white md:grid-cols-2">
                       {s.bullets.map((b) => (
                         <li key={b} className="flex items-start gap-2">
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-white/60" />
-                          <span>{b}</span>
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-purple-400" />
+                          <span className="text-sm text-white/85">{b}</span>
                         </li>
                       ))}
                     </ul>
@@ -270,10 +307,40 @@ export default function AboutPage() {
                   {s.badges?.length ? (
                     <div className="mt-6 flex flex-wrap gap-2" aria-label="Skills">
                       {s.badges.map((b) => (
-                        <Badge className="text-white" key={b}>{b}</Badge>
+                        <Badge className="text-white bg-purple-500/10 hover:bg-purple-500/20 border-purple-500/20" key={b}>{b}</Badge>
                       ))}
                     </div>
                   ) : null}
+
+                  {/* FAQ Accordion container */}
+                  {s.kicker === "07" && (
+                    <div className="mt-6 space-y-3">
+                      {FAQS.map((faq, fIdx) => {
+                        const isOpen = activeFaq === fIdx;
+                        return (
+                          <div key={fIdx} className="rounded-xl border border-white/5 bg-white/[0.02] overflow-hidden transition-colors duration-300 hover:border-purple-500/20">
+                            <button
+                              onClick={() => setActiveFaq(isOpen ? null : fIdx)}
+                              className="flex w-full items-center justify-between p-4 text-left font-semibold text-sm text-white/90 hover:bg-white/[0.02] transition-colors"
+                            >
+                              <span>{faq.question}</span>
+                              <span className={`text-purple-400 font-bold transition-transform duration-300 select-none ${isOpen ? "rotate-45" : ""}`}>+</span>
+                            </button>
+                            <motion.div
+                              initial={false}
+                              animate={{ height: isOpen ? "auto" : 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="overflow-hidden"
+                            >
+                              <p className="p-4 pt-0 text-xs leading-relaxed text-white/60 border-t border-white/5 bg-black/10">
+                                {faq.answer}
+                              </p>
+                            </motion.div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
 
                   <div className="mt-8 flex items-center gap-3">
                     <span className="text-xs text-white/40">

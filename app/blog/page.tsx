@@ -23,7 +23,7 @@ const BLOGS: Blog[] = [
   { id: "3", title: "Tailwind UI Systems Without Mess", category: "UI", date: "2026-02-05", readTime: "5 min" },
   { id: "4", title: "API Pagination That Won’t Die", category: "Backend", date: "2026-01-25", readTime: "7 min" },
   { id: "5", title: "MongoDB Indexing for Real Apps", category: "DB", date: "2026-01-10", readTime: "9 min" },
-  { id: "6", title: "Django + Next.js Integration", category: "Django", date: "2025-12-28", readTime: "10 min" },
+  { id: "6", title: "Firebase + Next.js Integration", category: "Firebase", date: "2025-12-28", readTime: "10 min" },
   { id: "7", title: "Git Workflow for Solo and Teams", category: "Git", date: "2025-12-10", readTime: "4 min" },
   { id: "8", title: "React Native UI That Feels Premium", category: "RN", date: "2025-11-29", readTime: "6 min" },
   { id: "9", title: "Performance Budget Checklist", category: "Perf", date: "2025-11-12", readTime: "5 min" },
@@ -120,7 +120,7 @@ export default function Page() {
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
-              {["React", "Next.js", "Django", "APIs", "Performance", "UI Systems"].map((item) => (
+              {["React", "Next.js", "Firebase", "APIs", "Performance", "UI Systems"].map((item) => (
                 <Badge key={item}>{item}</Badge>
               ))}
             </div>
