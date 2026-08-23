@@ -39,17 +39,17 @@ export default function Hero({
   const [persona, setPersona] = useState<"developer" | "racer">("developer");
 
   return (
-    <section className="relative overflow-hidden bg-[#09090b] text-neutral-100 py-16 md:py-24 border-b border-neutral-800/80">
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
+    <section className="relative overflow-hidden text-neutral-100 py-10 border-b border-neutral-800/80">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-0">
+
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-12">
-          
+
           {/* LEFT COLUMN: CLEAN PROFESSIONAL TYPOGRAPHY */}
           <div className="flex flex-col lg:col-span-7">
-            
+
             {/* STATUS BADGE */}
-            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-6">
-              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            <div className="flex items-center gap-2 text-xs font-mono text-purple-400 mb-6">
+              <span className="h-2 w-2 rounded-full bg-purple-500" />
               <span>Available for Full-Time Roles & Freelance Projects</span>
             </div>
 
@@ -133,7 +133,7 @@ export default function Hero({
           {/* RIGHT COLUMN: CLEAN PORTRAIT CARD WITH PERSONA TOGGLE */}
           <div className="flex justify-center lg:col-span-5">
             <div className="w-full max-w-sm rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4 shadow-xl">
-              
+
               {/* CARD TOP BAR */}
               <div className="flex items-center justify-between border-b border-neutral-800 pb-3 mb-4">
                 <div className="flex items-center gap-2">
@@ -145,21 +145,19 @@ export default function Hero({
                 <div className="flex items-center gap-1 rounded-lg bg-neutral-800/80 p-1 border border-neutral-700/50">
                   <button
                     onClick={() => setPersona("developer")}
-                    className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
-                      persona === "developer"
-                        ? "bg-white text-black font-semibold shadow-sm"
-                        : "text-neutral-400 hover:text-white"
-                    }`}
+                    className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${persona === "developer"
+                      ? "bg-white text-black font-semibold shadow-sm"
+                      : "text-neutral-400 hover:text-white"
+                      }`}
                   >
                     Developer
                   </button>
                   <button
                     onClick={() => setPersona("racer")}
-                    className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
-                      persona === "racer"
-                        ? "bg-white text-black font-semibold shadow-sm"
-                        : "text-neutral-400 hover:text-white"
-                    }`}
+                    className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${persona === "racer"
+                      ? "bg-white text-black font-semibold shadow-sm"
+                      : "text-neutral-400 hover:text-white"
+                      }`}
                   >
                     Racer
                   </button>
@@ -175,7 +173,7 @@ export default function Hero({
                   priority
                   className="object-cover object-center transition-all duration-300"
                 />
-                
+
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
 
                 <div className="absolute bottom-3 left-3 right-3 rounded-lg border border-neutral-800 bg-neutral-900/90 p-3 backdrop-blur-sm">

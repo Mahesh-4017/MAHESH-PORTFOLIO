@@ -4,6 +4,7 @@ import SkillsLogos from "@/components/Sections/SkillsLogos";
 import Skills from "@/components/Sections/Skills";
 import ProjectSlider from "@/components/projects/ProjectSlider";
 import Workflow from "@/components/Sections/Workflow";
+import Workspace from "@/components/Sections/Workspace";
 import FeaturedContent from "@/components/Sections/FeaturedContent";
 import SimpleCTA from "@/components/Sections/SimpleCTA";
 import Reveal from "@/components/ui/Reveal";
@@ -36,6 +37,11 @@ export default function HomePage() {
       {/* Developer Workflow Timeline */}
       <Reveal>
         <Workflow />
+      </Reveal>
+
+      {/* Interactive Workspace Setup Section */}
+      <Reveal>
+        <Workspace />
       </Reveal>
 
       {/* About & Blog Highlights Section */}
