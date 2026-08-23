@@ -16,7 +16,7 @@ export default function ContactPage() {
   const EMAIL = "sain903481@email.com";
   const WHATSAPP = "9190348-50987";
   const GITHUB = "https://github.com/MAHESH-4017";
-  const LINKEDIN = "https://www.linkedin.com/in/mahesh-215bb9385/"; // change
+  const LINKEDIN = "https://www.linkedin.com/in/mahesh-sain/"; // change
 
   const [topic, setTopic] = useState<Topic>("Freelance");
   const [name, setName] = useState("");

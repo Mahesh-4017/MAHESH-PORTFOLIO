@@ -28,8 +28,7 @@ body {
 #netlify-drawer,
 .netlify-drawer,
 .netlify-feedback-button,
-#netlify-comment-button,
-iframe[src*="netlify"] {
+#netlify-comment-button {
   display: none !important;
   visibility: hidden !important;
   pointer-events: none !important;
@@ -45,4 +44,43 @@ iframe[src*="netlify"] {
 
 *::-webkit-scrollbar {
   display: none; /* Chrome, Edge, Safari */
+}
+
+/* Webpage/Image Auto-Scroll Animation */
+@keyframes scrollWebpage {
+  0%, 12% {
+    transform: scale(var(--iframe-scale, 1)) translateY(0);
+  }
+  88%, 100% {
+    transform: scale(var(--iframe-scale, 1)) translateY(calc(-100% + (280px / var(--iframe-scale, 1))));
+  }
+}
+
+@keyframes scrollFallback {
+  0%, 12% {
+    transform: translateY(0);
+  }
+  88%, 100% {
+    transform: translateY(calc(-100% + 280px));
+  }
+}
+
+.scrolling-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1280px; /* Force standard desktop width */
+  border: none;
+  pointer-events: none;
+  background-color: #171717;
+  transform-origin: top left;
+}
+
+.scrolling-fallback {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
 }

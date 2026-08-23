@@ -14,9 +14,72 @@ export type Project = {
   liveUrl?: string;
   adminUrl?: string;
   demoLinks?: { label: string; url: string }[];
+  noScroll?: boolean;
 };
 
 export const projects: Project[] = [
+  {
+    title: "Food Ordering App UI",
+    slug: "food-website",
+    description:
+      "A vibrant, high-fidelity mobile-first food ordering UI with custom category filters, animated add-to-cart operations, and a slide-out shopping cart sheet.",
+    summary:
+      "A vibrant food discovery and ordering UI design with interactive cart animations.",
+    year: "2025",
+    role: "Full Stack Developer",
+    stack: ["React", "Tailwind CSS", "Framer Motion", "JavaScript"],
+    features: [
+      "Vibrant categorised food grids",
+      "Add-to-cart animated triggers",
+      "Drawer-style slide-out shopping cart list",
+      "Responsive multi-device layout",
+    ],
+    highlights: [
+      "Premium custom layout styles",
+      "Physics-based drawer drag transitions",
+      "Performant component rendering logic",
+    ],
+    cover: "/projects/travel-cover.png",
+    images: [
+      "/projects/travel-cover.png"
+    ],
+    githubUrl: "https://github.com/Mahesh-4017/Food-Website",
+    liveUrl: "https://foodie-ordering-01.netlify.app/",
+  },
+  {
+    title: "Admin Panel for ReadyForJob",
+    slug: "admin-panel-ready-for-job",
+    description:
+      "A production-ready full-stack job board platform featuring admin dashboards, job seeker profiles, real-time application status tracking, and secure Firebase authentication.",
+    summary:
+      "A complete full-stack job board platform with admin dashboard, application tracking, and secure Firebase auth.",
+    year: "2026",
+    role: "Full-Stack Developer",
+    stack: ["Next.js", "React", "Node.js", "MongoDB", "Tailwind", "TypeScript"],
+    features: [
+      "Role-based workflows (Admin vs Job Seeker)",
+      "Interactive job posting and applicant tracking",
+      "Real-time application status updates",
+      "Dynamic search and autocomplete filters",
+      "Environment-configured API clients",
+    ],
+    highlights: [
+      "Production-deployed on Vercel (Frontend) and Render (Backend)",
+      "Optimized MongoDB indexing for faster search queries",
+      "Secure and fluid Next.js router guards",
+    ],
+    cover: "/projects/admin-panel-cover.png",
+    images: [
+      "/projects/admin-panel-cover.png"
+    ],
+    githubUrl: "https://github.com/Mahesh-4017/Ready-For-Job-Website",
+    liveUrl: "https://ready-for-job-website.vercel.app/",
+    adminUrl: "https://admin.readyforjob.vercel.app/",
+    demoLinks: [
+      { label: "Website", url: "https://ready-for-job-website.vercel.app/" },
+      { label: "Admin Panel", url: "https://admin.readyforjob.vercel.app/" }
+    ],
+  },
   {
     title: "ReadyForJob - Full-Stack Job Portal",
     slug: "ready-for-job-website",
@@ -44,10 +107,10 @@ export const projects: Project[] = [
       "/projects/jobportal-cover.png"
     ],
     githubUrl: "https://github.com/Mahesh-4017/Ready-For-Job-Website",
-    liveUrl: "https://ready-for-job-website.vercel.app/",
+    liveUrl: "https://ready-for-job-website-oeqo.vercel.app/",
     adminUrl: "https://admin.readyforjob.vercel.app/",
     demoLinks: [
-      { label: "Website", url: "https://ready-for-job-website.vercel.app/" },
+      { label: "Website", url: "https://ready-for-job-website-oeqo.vercel.app/" },
       { label: "Admin Panel", url: "https://admin.readyforjob.vercel.app/" }
     ],
   },
@@ -106,6 +169,7 @@ export const projects: Project[] = [
     ],
     githubUrl: "https://github.com/Mahesh-4017/MaheshOS",
     liveUrl: "https://maheshos.netlify.app/",
+    noScroll: true,
   },
   {
     title: "Creative Agency Website UI",
@@ -134,121 +198,6 @@ export const projects: Project[] = [
     ],
     githubUrl: "https://github.com/Mahesh-4017/Strategy-Creative-Agency-Website-UI",
     liveUrl: "https://strategy-creative-agency-website.netlify.app/",
-  },
-  {
-    title: "BloomField College Portal",
-    slug: "job-portal-platform",
-    description:
-      "A modern college portal interface with course listings, admissions dashboards, and student search systems.",
-    summary:
-      "A clean portal interface designed for course directory navigation and student registration workflows.",
-    year: "2025",
-    role: "Full Stack Developer",
-    stack: ["Next.js", "React", "Tailwind", "TypeScript"],
-    features: [
-      "Dynamic student dashboard panel",
-      "Filterable course catalog grids",
-      "Responsive admissions forms",
-      "Optimized SEO tags for academic search visibility",
-    ],
-    highlights: [
-      "Reusable component-driven codebase",
-      "Robust state management for complex enrollment forms",
-      "Accessible ARIA compliant UI components",
-    ],
-    cover: "/projects/jobportal-cover.png",
-    images: [
-      "/projects/jobportal-cover.png",
-      "/jobportal-1.png",
-      "/jobportal-2.png",
-      "/jobportal-3.png",
-      "/jobportal-4.png",
-    ],
-    githubUrl: "https://github.com/Mahesh-4017/job-portal-ui",
-    liveUrl: "http://bloomfield.bloomfieldcollege.net/",
-  },
-  {
-    title: "WorkWave - Firebase Job Board",
-    slug: "workwave",
-    description:
-      "A real-time job board app utilizing Firebase Firestore and Authentication for smooth, sub-second data synchronization and user login flows.",
-    summary:
-      "A real-time job directory built on Firebase database sync and user auth controls.",
-    year: "2026",
-    role: "Full Stack Developer",
-    stack: ["React", "Firebase", "Tailwind CSS", "TypeScript"],
-    features: [
-      "Sub-second Firestore real-time queries",
-      "Recruiter job posting interface",
-      "Job seeker profile creator and application logs",
-      "Responsive sidebar panels",
-    ],
-    highlights: [
-      "Zero-latency state updates using snapshots",
-      "Highly secure rules configuration for database writes",
-      "Clean client-side validation schema",
-    ],
-    cover: "/projects/travel-cover.png",
-    images: [
-      "/projects/travel-cover.png"
-    ],
-    githubUrl: "https://github.com/Mahesh-4017/WorkWave",
-  },
-  {
-    title: "House - Modern Real Estate",
-    slug: "house-website",
-    description:
-      "A premium real estate portal design with detailed property cards, responsive filter matrices, and animated transition panels.",
-    summary:
-      "A sleek real estate showcase website with search filter panels and property galleries.",
-    year: "2025",
-    role: "Full Stack Developer",
-    stack: ["Next.js", "Tailwind CSS", "Framer Motion", "TypeScript"],
-    features: [
-      "Advanced property size, budget, and region filter",
-      "Immersive photo carousel grids",
-      "Animated booking consultation triggers",
-      "Sleek layout shifts and scroll alerts",
-    ],
-    highlights: [
-      "Polished scroll-triggered CSS cues",
-      "Optimized layout shift (CLS) for web performance",
-      "Smooth layout transitions between view states",
-    ],
-    cover: "/projects/travel-cover.png",
-    images: [
-      "/projects/travel-cover.png"
-    ],
-    githubUrl: "https://github.com/Mahesh-4017/House-Website-",
-    liveUrl: "https://house-website-ui.netlify.app/",
-  },
-  {
-    title: "Food Ordering App UI",
-    slug: "food-website",
-    description:
-      "A vibrant, high-fidelity mobile-first food ordering UI with custom category filters, animated add-to-cart operations, and a slide-out shopping cart sheet.",
-    summary:
-      "A vibrant food discovery and ordering UI design with interactive cart animations.",
-    year: "2025",
-    role: "Full Stack Developer",
-    stack: ["React", "Tailwind CSS", "Framer Motion", "JavaScript"],
-    features: [
-      "Vibrant categorised food grids",
-      "Add-to-cart animated triggers",
-      "Drawer-style slide-out shopping cart list",
-      "Responsive multi-device layout",
-    ],
-    highlights: [
-      "Premium custom layout styles",
-      "Physics-based drawer drag transitions",
-      "Performant component rendering logic",
-    ],
-    cover: "/projects/travel-cover.png",
-    images: [
-      "/projects/travel-cover.png"
-    ],
-    githubUrl: "https://github.com/Mahesh-4017/Food-Website",
-    liveUrl: "https://foodie-ordering-01.netlify.app/",
   },
   {
     title: "Clinic Website UI",
@@ -310,28 +259,6 @@ export const projects: Project[] = [
     liveUrl: "https://travel-booking-landing.netlify.app/",
   },
   {
-    title: "Music Streaming App",
-    slug: "music-app",
-    description:
-      "A music playback web portal featuring custom audio players, visual sound trackers, and playlist management dashboards.",
-    summary:
-      "A modern web audio player with play/pause states and playlist grid views.",
-    year: "2026",
-    role: "Full Stack Developer",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    features: [
-      "Interactive audio control slider bar",
-      "Album/Playlist collection selector grids",
-      "Volume, loop, and shuffle modifiers",
-      "Responsive navigation sidebar layout",
-    ],
-    highlights: ["Fluid audio element synchronization", "Clean, premium dark UI mockup", "Responsive media query scaling"],
-    cover: "/projects/music-cover.png",
-    images: ["/projects/music-cover.png"],
-    githubUrl: "https://github.com/Mahesh-4017/Music-Streaming-App",
-    liveUrl: "https://music-streaming-01.netlify.app/",
-  },
-  {
     title: "QR Code Generator",
     slug: "qr-generator",
     description:
@@ -351,23 +278,7 @@ export const projects: Project[] = [
     cover: "/projects/qr-cover.png",
     images: ["/projects/qr-cover.png"],
     githubUrl: "https://github.com/Mahesh-4017/QR-Code-Generator",
-  },
-  {
-    title: "Ecommerce Website (Basic)",
-    slug: "ecommerce-basic",
-    description:
-      "A basic responsive e-commerce layout showcasing catalog design, cart indicators, and navigation components.",
-    summary:
-      "A simple catalog structure with product grids, filters, and shopping list states.",
-    year: "2025",
-    role: "Full Stack Developer",
-    stack: ["HTML", "CSS", "JavaScript"],
-    features: ["Grid-aligned product items", "Responsive navigation menu", "Interactive cart item counter"],
-    highlights: ["Beginner-friendly clean template", "Optimized raw CSS styles", "Responsive screen grid design"],
-    cover: "/projects/ecommerce-basic.png",
-    images: ["/projects/ecommerce-basic.png"],
-    githubUrl: "https://github.com/Mahesh-4017/Ecommerce-website",
-    liveUrl: "https://ecomerse545445.netlify.app/",
+    liveUrl: "https://mahesh-4017.github.io/QR-Code-Generator/",
   },
   {
     title: "Mahesh Portfolio",
@@ -390,5 +301,131 @@ export const projects: Project[] = [
     images: ["/projects/portfolio-cover.png"],
     githubUrl: "https://github.com/Mahesh-4017/MAHESH-PORTFOLIO",
     liveUrl: "https://mahesh-portfolio-01.netlify.app/",
+  },
+  {
+    title: "BloomField College Portal",
+    slug: "job-portal-platform",
+    description:
+      "A modern college portal interface with course listings, admissions dashboards, and student search systems.",
+    summary:
+      "A clean portal interface designed for course directory navigation and student registration workflows.",
+    year: "2025",
+    role: "Full Stack Developer",
+    stack: ["Next.js", "React", "Tailwind", "TypeScript"],
+    features: [
+      "Dynamic student dashboard panel",
+      "Filterable course catalog grids",
+      "Responsive admissions forms",
+      "Optimized SEO tags for academic search visibility",
+    ],
+    highlights: [
+      "Reusable component-driven codebase",
+      "Robust state management for complex enrollment forms",
+      "Accessible ARIA compliant UI components",
+    ],
+    cover: "/projects/jobportal-cover.png",
+    images: [
+      "/projects/jobportal-cover.png",
+      "/jobportal-1.png",
+      "/jobportal-2.png",
+      "/jobportal-3.png",
+      "/jobportal-4.png",
+    ],
+    githubUrl: "https://github.com/Mahesh-4017/job-portal-ui",
+    liveUrl: "http://bloomfield.bloomfieldcollege.net/",
+  },
+  {
+    title: "WorkWave - Firebase Job Board",
+    slug: "workwave",
+    description:
+      "A real-time job board app utilizing Firebase Firestore and Authentication for smooth, sub-second data synchronization and user login flows.",
+    summary:
+      "A real-time job directory built on Firebase database sync and user auth controls.",
+    year: "2026",
+    role: "Full Stack Developer",
+    stack: ["React", "Firebase", "Tailwind CSS", "TypeScript"],
+    features: [
+      "Sub-second Firestore real-time queries",
+      "Recruiter job posting interface",
+      "Job seeker profile creator and application logs",
+      "Responsive sidebar panels",
+    ],
+    highlights: [
+      "Zero-latency state updates using snapshots",
+      "Highly secure rules configuration for database writes",
+      "Clean client-side validation schema",
+    ],
+    cover: "/projects/travel-cover.png",
+    images: [
+      "/projects/travel-cover.png"
+    ],
+    githubUrl: "https://github.com/Mahesh-4017/WorkWave",
+  },
+  {
+    title: "Ecommerce Website (Basic)",
+    slug: "ecommerce-basic",
+    description:
+      "A basic responsive e-commerce layout showcasing catalog design, cart indicators, and navigation components.",
+    summary:
+      "A simple catalog structure with product grids, filters, and shopping list states.",
+    year: "2025",
+    role: "Full Stack Developer",
+    stack: ["HTML", "CSS", "JavaScript"],
+    features: ["Grid-aligned product items", "Responsive navigation menu", "Interactive cart item counter"],
+    highlights: ["Beginner-friendly clean template", "Optimized raw CSS styles", "Responsive screen grid design"],
+    cover: "/projects/ecommerce-basic.png",
+    images: ["/projects/ecommerce-basic.png"],
+    githubUrl: "https://github.com/Mahesh-4017/Ecommerce-website",
+    liveUrl: "https://ecomerse545445.netlify.app/",
+  },
+  {
+    title: "Music Streaming App",
+    slug: "music-app",
+    description:
+      "A music playback web portal featuring custom audio players, visual sound trackers, and playlist management dashboards.",
+    summary:
+      "A modern web audio player with play/pause states and playlist grid views.",
+    year: "2026",
+    role: "Full Stack Developer",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    features: [
+      "Interactive audio control slider bar",
+      "Album/Playlist collection selector grids",
+      "Volume, loop, and shuffle modifiers",
+      "Responsive navigation sidebar layout",
+    ],
+    highlights: ["Fluid audio element synchronization", "Clean, premium dark UI mockup", "Responsive media query scaling"],
+    cover: "/projects/music-cover.png",
+    images: ["/projects/music-cover.png"],
+    githubUrl: "https://github.com/Mahesh-4017/Music-Streaming-App",
+    liveUrl: "https://music-streaming-01.netlify.app/",
+  },
+  {
+    title: "House - Modern Real Estate",
+    slug: "house-website",
+    description:
+      "A premium real estate portal design with detailed property cards, responsive filter matrices, and animated transition panels.",
+    summary:
+      "A sleek real estate showcase website with search filter panels and property galleries.",
+    year: "2025",
+    role: "Full Stack Developer",
+    stack: ["Next.js", "Tailwind CSS", "Framer Motion", "TypeScript"],
+    features: [
+      "Advanced property size, budget, and region filter",
+      "Immersive photo carousel grids",
+      "Animated booking consultation triggers",
+      "Sleek layout shifts and scroll alerts",
+    ],
+    highlights: [
+      "Polished scroll-triggered CSS cues",
+      "Optimized layout shift (CLS) for web performance",
+      "Smooth layout transitions between view states",
+    ],
+    cover: "/projects/travel-cover.png",
+    images: [
+      "/projects/travel-cover.png"
+    ],
+    githubUrl: "https://github.com/Mahesh-4017/House-Website-",
+    liveUrl: "https://house-website-ui.netlify.app/",
   },
 ];

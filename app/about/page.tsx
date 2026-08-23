@@ -24,19 +24,39 @@ const SECTIONS: Section[] = [
   {
     kicker: "01",
     title: "Who I am",
-    desc: `I’m a passionate Full Stack Developer who enjoys turning ideas into modern, responsive, and user-friendly web applications. I have a strong interest in both frontend and backend development, allowing me to build complete web solutions from concept to deployment.
-
-On the frontend, I work with technologies such as HTML, CSS, JavaScript, React, and modern UI frameworks to create clean, interactive, and responsive user experiences. On the backend, I develop reliable and scalable applications using technologies such as Node.js, Express, PHP, and databases like MongoDB and MySQL.
-
-I enjoy solving complex problems, learning new technologies, and continuously improving my development skills. I focus on writing clean, maintainable code and building applications that are efficient, secure, and easy to use.
-
-I believe that good development is not only about writing code but also about understanding users’ needs and creating solutions that provide real value. I’m always excited to work on challenging projects, collaborate with others, and transform creative ideas into functional digital products.
-
-Beyond engineering, I focus on performance optimization, caching patterns, API security, and responsive layouts to ensure high-performance deployments. My goal is to continue growing as a developer while creating innovative web experiences that make a meaningful impact.`,
-    badges: ["React", "Next.js", "Tailwind", "JavaScript", "Node.js", "Express", "MongoDB", "MySQL", "PHP"],
+    desc: "I’m a passionate Full Stack Developer who enjoys turning ideas into modern, responsive, and user-friendly web applications. I handle complete web solutions from concept to deployment with a focus on seamless user experience.",
+    bullets: [
+      "End-to-End Web Solutions",
+      "User-Centric Interfaces",
+      "Modern Web Standards",
+      "Rapid Problem Solving",
+    ],
   },
   {
     kicker: "02",
+    title: "Technical Specialization",
+    desc: "On the frontend, I create clean, interactive web experiences with React and modern UI tools. On the backend, I engineer scalable APIs and databases using Node.js, Express, PHP, MongoDB, and MySQL.",
+    badges: ["React", "Next.js", "Tailwind", "JavaScript", "Node.js", "Express", "MongoDB", "MySQL", "PHP"],
+    bullets: [
+      "Responsive Frontend Design",
+      "Scalable Backend & REST APIs",
+      "Database Architecture & SQL/NoSQL",
+      "Performance & Security Optimization",
+    ],
+  },
+  {
+    kicker: "03",
+    title: "Development Philosophy",
+    desc: "I believe great development goes beyond writing code—it's about solving real problems and delivering genuine value. I focus on writing clean, maintainable, and future-proof code.",
+    bullets: [
+      "Clean & Maintainable Code",
+      "User-Focused Solutions",
+      "Continuous Skill Growth",
+      "High-Performance Deployments",
+    ],
+  },
+  {
+    kicker: "04",
     title: "What I build",
     desc:
       "Clean components, fast pages, simple UX. I care about real performance, not fake polish.",
@@ -48,7 +68,7 @@ Beyond engineering, I focus on performance optimization, caching patterns, API s
     ],
   },
   {
-    kicker: "03",
+    kicker: "05",
     title: "How I work",
     desc:
       "I keep code readable, predictable, and scalable. No messy hacks that break later.",
@@ -60,7 +80,7 @@ Beyond engineering, I focus on performance optimization, caching patterns, API s
     ],
   },
   {
-    kicker: "04",
+    kicker: "06",
     title: "My stack",
     desc: "Frontend and backend tools I use for production apps.",
     badges: [
@@ -82,7 +102,7 @@ Beyond engineering, I focus on performance optimization, caching patterns, API s
     ],
   },
   {
-    kicker: "05",
+    kicker: "07",
     title: "What you get",
     desc:
       "A site that feels premium, loads fast, and stays maintainable when features grow.",
@@ -94,14 +114,14 @@ Beyond engineering, I focus on performance optimization, caching patterns, API s
     ],
   },
   {
-    kicker: "06",
+    kicker: "08",
     title: "Let’s build",
     desc:
       "If you want a portfolio, landing page, admin panel, or full app, I can build it cleanly.",
     bullets: ["Freelance", "Full time", "Remote", "Project based"],
   },
   {
-    kicker: "07",
+    kicker: "09",
     title: "Frequently Asked Questions",
     desc: "Here are some quick answers to common questions about my development workflow, stack, and availability.",
   },
@@ -313,7 +333,7 @@ export default function AboutPage() {
                   ) : null}
 
                   {/* FAQ Accordion container */}
-                  {s.kicker === "07" && (
+                  {s.title === "Frequently Asked Questions" && (
                     <div className="mt-6 space-y-3">
                       {FAQS.map((faq, fIdx) => {
                         const isOpen = activeFaq === fIdx;
