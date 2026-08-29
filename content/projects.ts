@@ -302,6 +302,163 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/Mahesh-4017/MAHESH-PORTFOLIO",
     liveUrl: "https://mahesh-portfolio-01.netlify.app/",
   },
+
+
+  {
+    title: "Music Streaming App",
+    slug: "music-app",
+    description:
+      "A music playback web portal featuring custom audio players, visual sound trackers, and playlist management dashboards.",
+    summary:
+      "A modern web audio player with play/pause states and playlist grid views.",
+    year: "2026",
+    role: "Full Stack Developer",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    features: [
+      "Interactive audio control slider bar",
+      "Album/Playlist collection selector grids",
+      "Volume, loop, and shuffle modifiers",
+      "Responsive navigation sidebar layout",
+    ],
+    highlights: ["Fluid audio element synchronization", "Clean, premium dark UI mockup", "Responsive media query scaling"],
+    cover: "/projects/music-cover.png",
+    images: ["/projects/music-cover.png"],
+    githubUrl: "https://github.com/Mahesh-4017/Music-Streaming-App",
+    liveUrl: "https://music-streaming-app-03.netlify.app/",
+  },
+
+  {
+    title: "Apex GT - Luxury Sports Car Website",
+    slug: "apex-gt-car-website",
+    description:
+      "Apex GT is a modern luxury sports-car web application designed for speed, performance, and an immersive driving experience. Explore a stunning collection of high-performance GT cars through a sleek, futuristic interface featuring smooth CSS animations, cinematic transitions, interactive car sections, real-time spec matrices, and VIP test drive booking.",
+    summary:
+      "A high-performance dark-luxury hypercar showcase built with GSAP 3D ScrollTrigger parallax and interactive configurators.",
+    year: "2026",
+    role: "Full Stack Developer",
+    stack: ["React", "TypeScript", "Vite", "Tailwind CSS", "GSAP"],
+    features: [
+      "GSAP 3D ScrollTrigger story scrub",
+      "Interactive drive mode & paint configurator",
+      "Real-time performance telemetry matrix",
+      "VIP test-drive reservation system",
+    ],
+    highlights: [
+      "Obsidian luxury dark aesthetics",
+      "60fps cinematic horizontal scroll transitions",
+      "Glassmorphic HUD dashboard overlays",
+    ],
+    cover: "/projects/travel-cover.png",
+    images: ["/projects/travel-cover.png"],
+    githubUrl: "https://github.com/Mahesh-4017/Apex-GT-Car-Website",
+    liveUrl: "https://apex-gt-car-website.netlify.app/",
+  },
+  {
+    title: "Enterprise SaaS Admin Dashboard",
+    slug: "admin-dashboard",
+    description:
+      "A modern enterprise admin dashboard built with Next.js 16 and Firebase. Designed as a standalone management hub for real-time analytics, user access control, live order streams, stock inventory management, GST invoice generation, and customer CRM.",
+    summary:
+      "A production-ready SaaS administration panel with real-time Firebase Firestore syncing, revenue analytics, and CRM.",
+    year: "2026",
+    role: "Full Stack Developer",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Firebase", "Firestore"],
+    features: [
+      "Live Firestore snapshot listeners for orders",
+      "Interactive sales trajectory curve charts",
+      "Automated GST invoice generator",
+      "Team leaderboard & performance spotlights",
+    ],
+    highlights: [
+      "Electric Violet & Luxury Cream design system",
+      "Zero-CLS Next.js 16 Turbopack build",
+      "Multi-provider authentication flows",
+    ],
+    cover: "/projects/admin-panel-cover.png",
+    images: ["/projects/admin-panel-cover.png"],
+    githubUrl: "https://github.com/Mahesh-4017/Admin-Dashboard",
+    liveUrl: "https://dashboard-4017.netlify.app/",
+  },
+  {
+    title: "Go-Pick Modern E-Commerce Platform",
+    slug: "go-pick",
+    description:
+      "Go-Pick is a high-performance fashion and lifestyle e-commerce platform featuring 7 major departments and 25+ sub-categories. Built with Next.js 15, Framer Motion, and Firebase, it offers instant query search modals, interactive cart drawers, wishlist persistence, and smooth mobile UI.",
+    summary:
+      "A feature-rich e-commerce store with dynamic category search, wishlist, shopping bag, and Firebase auth.",
+    year: "2026",
+    role: "Full Stack Developer",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Firebase"],
+    features: [
+      "Instant multi-category search & filtering",
+      "Framer Motion animated shopping bag & wishlist",
+      "Firebase Auth & Firestore profile sync",
+      "Responsive off-canvas mobile navigation",
+    ],
+    highlights: [
+      "Performant Next.js 15 App Router architecture",
+      "Rich visual micro-animations",
+      "Tax & free shipping calculator",
+    ],
+    cover: "/projects/ecommerce-cover.png",
+    images: ["/projects/ecommerce-cover.png"],
+    githubUrl: "https://github.com/Mahesh-4017/Go-Pick-Modern-E-Commerce-Website",
+    liveUrl: "https://go-pick-modern-e-commerce-website.netlify.app",
+  },
+
+  {
+    title: "AuraClean Eco Personal Care",
+    slug: "soap-website",
+    description:
+      "AuraClean is a modern web application for a premium organic detergent brand. Built with React, Vite, and Tailwind CSS, it features interactive stain treatment guides, a smart dosing calculator, glassmorphic cart drawer, and a 3-stage animated video order confirmation.",
+    summary:
+      "An eco-friendly soap brand platform with detergent dosing calculators, stain solvers, and animated checkout.",
+    year: "2026",
+    role: "Full Stack Developer",
+    stack: ["React", "Vite", "Tailwind CSS", "Firebase", "JavaScript"],
+    features: [
+      "Interactive stain solver & dosage calculator",
+      "Glassmorphic shopping cart with payment gateways",
+      "3-stage animated order confirmation screen",
+      "Firebase authentication with profile management",
+    ],
+    highlights: [
+      "Fresh eco-green luxury aesthetic",
+      "Interactive diagnostic tools",
+      "Physics-based drawer transitions",
+    ],
+    cover: "/projects/agency-cover.png",
+    images: ["/projects/agency-cover.png"],
+    githubUrl: "https://github.com/Mahesh-4017/Soap-website",
+    liveUrl: "https://soap-website-03.netlify.app",
+  },
+
+  {
+    title: "Rock Paper Scissors JS Game",
+    slug: "rock-paper-scissors-game-js",
+    description:
+      "A clean and responsive Rock Paper Scissors web game built using pure JavaScript, HTML5, and CSS3. Features custom match scoring, dynamic round winner announcements, animated choice icons, and instant replay controls.",
+    summary:
+      "An interactive browser game with real-time score tracking and smooth match UI against computer AI.",
+    year: "2026",
+    role: "Frontend Developer",
+    stack: ["JavaScript", "HTML5", "CSS3"],
+    features: [
+      "Automated computer choice generation",
+      "Persistent score counter",
+      "Smooth match visual feedback",
+      "Mobile-optimized button layouts",
+    ],
+    highlights: [
+      "Zero external dependencies",
+      "Instant response match engine",
+      "Crisp minimalist UI",
+    ],
+    cover: "/projects/travel-cover.png",
+    images: ["/projects/travel-cover.png"],
+    githubUrl: "https://github.com/Mahesh-4017/Rock-paper-scissors-game-js",
+    liveUrl: "https://rock-paper-scissors-03.netlify.app/",
+  },
   {
     title: "BloomField College Portal",
     slug: "job-portal-platform",
@@ -334,98 +491,5 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/Mahesh-4017/job-portal-ui",
     liveUrl: "http://bloomfield.bloomfieldcollege.net/",
   },
-  {
-    title: "WorkWave - Firebase Job Board",
-    slug: "workwave",
-    description:
-      "A real-time job board app utilizing Firebase Firestore and Authentication for smooth, sub-second data synchronization and user login flows.",
-    summary:
-      "A real-time job directory built on Firebase database sync and user auth controls.",
-    year: "2026",
-    role: "Full Stack Developer",
-    stack: ["React", "Firebase", "Tailwind CSS", "TypeScript"],
-    features: [
-      "Sub-second Firestore real-time queries",
-      "Recruiter job posting interface",
-      "Job seeker profile creator and application logs",
-      "Responsive sidebar panels",
-    ],
-    highlights: [
-      "Zero-latency state updates using snapshots",
-      "Highly secure rules configuration for database writes",
-      "Clean client-side validation schema",
-    ],
-    cover: "/projects/travel-cover.png",
-    images: [
-      "/projects/travel-cover.png"
-    ],
-    githubUrl: "https://github.com/Mahesh-4017/WorkWave",
-  },
-  {
-    title: "Ecommerce Website (Basic)",
-    slug: "ecommerce-basic",
-    description:
-      "A basic responsive e-commerce layout showcasing catalog design, cart indicators, and navigation components.",
-    summary:
-      "A simple catalog structure with product grids, filters, and shopping list states.",
-    year: "2025",
-    role: "Full Stack Developer",
-    stack: ["HTML", "CSS", "JavaScript"],
-    features: ["Grid-aligned product items", "Responsive navigation menu", "Interactive cart item counter"],
-    highlights: ["Beginner-friendly clean template", "Optimized raw CSS styles", "Responsive screen grid design"],
-    cover: "/projects/ecommerce-basic.png",
-    images: ["/projects/ecommerce-basic.png"],
-    githubUrl: "https://github.com/Mahesh-4017/Ecommerce-website",
-    liveUrl: "https://ecomerse545445.netlify.app/",
-  },
-  {
-    title: "Music Streaming App",
-    slug: "music-app",
-    description:
-      "A music playback web portal featuring custom audio players, visual sound trackers, and playlist management dashboards.",
-    summary:
-      "A modern web audio player with play/pause states and playlist grid views.",
-    year: "2026",
-    role: "Full Stack Developer",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    features: [
-      "Interactive audio control slider bar",
-      "Album/Playlist collection selector grids",
-      "Volume, loop, and shuffle modifiers",
-      "Responsive navigation sidebar layout",
-    ],
-    highlights: ["Fluid audio element synchronization", "Clean, premium dark UI mockup", "Responsive media query scaling"],
-    cover: "/projects/music-cover.png",
-    images: ["/projects/music-cover.png"],
-    githubUrl: "https://github.com/Mahesh-4017/Music-Streaming-App",
-    liveUrl: "https://music-streaming-01.netlify.app/",
-  },
-  {
-    title: "House - Modern Real Estate",
-    slug: "house-website",
-    description:
-      "A premium real estate portal design with detailed property cards, responsive filter matrices, and animated transition panels.",
-    summary:
-      "A sleek real estate showcase website with search filter panels and property galleries.",
-    year: "2025",
-    role: "Full Stack Developer",
-    stack: ["Next.js", "Tailwind CSS", "Framer Motion", "TypeScript"],
-    features: [
-      "Advanced property size, budget, and region filter",
-      "Immersive photo carousel grids",
-      "Animated booking consultation triggers",
-      "Sleek layout shifts and scroll alerts",
-    ],
-    highlights: [
-      "Polished scroll-triggered CSS cues",
-      "Optimized layout shift (CLS) for web performance",
-      "Smooth layout transitions between view states",
-    ],
-    cover: "/projects/travel-cover.png",
-    images: [
-      "/projects/travel-cover.png"
-    ],
-    githubUrl: "https://github.com/Mahesh-4017/House-Website-",
-    liveUrl: "https://house-website-ui.netlify.app/",
-  },
 ];
+
