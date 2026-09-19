@@ -18,7 +18,6 @@ export default function LiquidCursor() {
   const lastMoveRef = useRef(0);
 
   useEffect(() => {
-    // Respect users who prefer reduced motion
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
@@ -33,16 +32,20 @@ export default function LiquidCursor() {
     canvas.style.height = "100%";
     canvas.style.pointerEvents = "none";
     canvas.style.zIndex = "9999";
+
     canvas.setAttribute("aria-hidden", "true");
 
     document.body.appendChild(canvas);
 
-    const ctx = canvas.getContext("2d");
+    const context = canvas.getContext("2d");
 
-    if (!ctx) {
+    if (!context) {
       canvas.remove();
       return;
     }
+
+    // TypeScript now knows ctx can never be null
+    const ctx: CanvasRenderingContext2D = context;
 
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
 
@@ -82,7 +85,6 @@ export default function LiquidCursor() {
         hue: nextHue(),
       });
 
-      // Prevent too many particles
       if (ripplesRef.current.length > 35) {
         ripplesRef.current.splice(
           0,
@@ -94,7 +96,6 @@ export default function LiquidCursor() {
     function onMove(e: PointerEvent) {
       const now = performance.now();
 
-      // Limit ripple creation for better performance
       if (now - lastMoveRef.current < 22) {
         return;
       }
@@ -164,6 +165,7 @@ export default function LiquidCursor() {
         ctx.lineWidth = ripple.w;
 
         ctx.shadowBlur = 12;
+
         ctx.shadowColor = `hsla(
           ${ripple.hue},
           90%,

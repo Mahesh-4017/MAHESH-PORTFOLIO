@@ -356,7 +356,7 @@ export const projects: Project[] = [
     cover: "/projects/portfolio-cover.png",
     images: ["/projects/portfolio-cover.png"],
     githubUrl: "https://github.com/Mahesh-4017/MAHESH-PORTFOLIO",
-    liveUrl: "https://mahesh-portfolio-01.netlify.app/",
+    liveUrl: "https://mahesh-portfolio-07.netlify.app/",
   },
 
 
