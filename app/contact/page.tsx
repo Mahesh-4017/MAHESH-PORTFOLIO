@@ -3,10 +3,28 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import Container from "@/components/layout/Container";
+import {
+  ArrowUpRight,
+  Check,
+  Copy,
+  Download,
+  Github,
+  Linkedin,
+  Mail,
+  MessageCircle,
+  Send,
+  Sparkles,
+} from "lucide-react";
 
 type Topic = "Freelance" | "Full-time" | "Collab" | "Bug Fix" | "Consulting";
 
-const TOPICS: Topic[] = ["Freelance", "Full-time", "Collab", "Bug Fix", "Consulting"];
+const TOPICS: Topic[] = [
+  "Freelance",
+  "Full-time",
+  "Collab",
+  "Bug Fix",
+  "Consulting",
+];
 
 function cn(...classes: Array<string | false | undefined | null>) {
   return classes.filter(Boolean).join(" ");
@@ -14,9 +32,9 @@ function cn(...classes: Array<string | false | undefined | null>) {
 
 export default function ContactPage() {
   const EMAIL = "sain903481@email.com";
-  const WHATSAPP = "9190348-50987";
+  const WHATSAPP = "919034850987";
   const GITHUB = "https://github.com/MAHESH-4017";
-  const LINKEDIN = "https://www.linkedin.com/in/mahesh-sain/"; // change
+  const LINKEDIN = "https://www.linkedin.com/in/mahesh-sain/";
 
   const [topic, setTopic] = useState<Topic>("Freelance");
   const [name, setName] = useState("");
@@ -39,12 +57,15 @@ export default function ContactPage() {
     ]
       .filter(Boolean)
       .join("\n");
-    return `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    return `mailto:${EMAIL}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
   }, [EMAIL, subject, topic, name, from, message]);
 
   const waHref = useMemo(() => {
     const text = [
-      `Hi, I'm contacting you.`,
+      "Hi Mahesh, I'm contacting you.",
       `Topic: ${topic}`,
       name ? `Name: ${name}` : "",
       from ? `Email: ${from}` : "",
@@ -53,6 +74,7 @@ export default function ContactPage() {
     ]
       .filter(Boolean)
       .join("\n");
+
     return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
   }, [WHATSAPP, topic, name, from, message]);
 
@@ -60,254 +82,450 @@ export default function ContactPage() {
     try {
       await navigator.clipboard.writeText(text);
       setCopied(kind);
-      window.setTimeout(() => setCopied(null), 1200);
+
+      window.setTimeout(() => {
+        setCopied(null);
+      }, 1500);
     } catch {
-      // ignore
+      // Clipboard access can fail in some browsers.
     }
   }
 
-  const canSend = from.trim().includes("@") && message.trim().length >= 10;
+  const canSend =
+    from.trim().includes("@") && message.trim().length >= 10;
 
   return (
-    <section className="relative overflow-hidden bg-black text-white">
-      {/* Background */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(to_right,rgba(255,255,255,0.18)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.18)_1px,transparent_1px)] [background-size:64px_64px]" />
-        <div className="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full blur-3xl opacity-70 animate-[float_10s_ease-in-out_infinite] bg-[conic-gradient(from_180deg,#00d5ff,#a855f7,#ffb700,#34d399,#00d5ff)]" />
-        <div className="absolute -bottom-48 -right-48 h-[560px] w-[560px] rounded-full blur-3xl opacity-50 animate-[float2_12s_ease-in-out_infinite] bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.18),transparent_60%)]" />
+    <section className="relative min-h-screen overflow-hidden bg-[#050505] text-white">
+      {/* Ambient background */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_35%)]" />
+
+        <div className="absolute left-1/2 top-[-280px] h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-white/[0.035] blur-3xl" />
+
+        <div className="absolute right-[-180px] top-[35%] h-[420px] w-[420px] rounded-full bg-emerald-500/[0.035] blur-3xl" />
+
+        <div className="absolute bottom-[-200px] left-[-150px] h-[450px] w-[450px] rounded-full bg-blue-500/[0.025] blur-3xl" />
+
+        <div className="absolute inset-0 opacity-[0.025] [background-image:linear-gradient(to_right,rgba(255,255,255,0.8)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.8)_1px,transparent_1px)] [background-size:64px_64px]" />
       </div>
 
-      <Container className="relative py-16 md:py-20">
+      <Container className="relative py-20 md:py-28">
         {/* Header */}
-        <div className="mx-auto max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 backdrop-blur">
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            Open for serious work only
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-medium text-white/65 backdrop-blur-xl">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+
+            Available for new opportunities
           </div>
 
-          <h1 className="mt-6 text-4xl font-semibold md:text-6xl">
-            Contact Command Center
+          <h1 className="mt-7 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl md:text-6xl lg:text-7xl">
+            Let&apos;s build
+            <span className="block text-white/45">
+              something great.
+            </span>
           </h1>
 
-          <p className="mt-4 text-white/70">
-            Pick a topic, write a real message, then send via Email or WhatsApp. No fluff.
+          <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-white/55 sm:text-base">
+            Have a project, job opportunity, collaboration, or technical
+            problem? Send me a message and let&apos;s talk about it.
           </p>
         </div>
 
-        {/* Main */}
-        <div className="mt-12 grid gap-6 lg:grid-cols-[380px_1fr]">
-          {/* Left panel */}
-          <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur">
-            <div className="flex items-center justify-between">
-              <p className="text-sm text-white/70">Quick actions</p>
-              <span className="text-xs text-white/40">v1.0</span>
-            </div>
-
-            <div className="mt-5 grid gap-3">
-              <button
-                onClick={() => copy(EMAIL, "email")}
-                className="group flex items-center justify-between rounded-2xl border border-white/10 bg-black/30 px-4 py-4 text-left hover:border-white/25 hover:bg-black/40 transition"
-              >
+        {/* Main grid */}
+        <div className="mt-14 grid gap-6 lg:grid-cols-[360px_1fr]">
+          {/* LEFT */}
+          <aside className="space-y-6">
+            {/* Contact card */}
+            <div className="rounded-[28px] border border-white/10 bg-white/[0.035] p-5 shadow-2xl shadow-black/20 backdrop-blur-xl">
+              <div className="mb-5 flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-white/70">Email</p>
-                  <p className="mt-1 font-medium">{EMAIL}</p>
+                  <p className="text-sm font-medium text-white">
+                    Contact details
+                  </p>
+                  <p className="mt-1 text-xs text-white/40">
+                    Direct ways to reach me
+                  </p>
                 </div>
-                <span className="text-xs text-white/50 group-hover:text-white/70">
-                  {copied === "email" ? "Copied" : "Copy"}
-                </span>
-              </button>
 
-              <button
-                onClick={() => copy(`+${WHATSAPP}`, "wa")}
-                className="group flex items-center justify-between rounded-2xl border border-white/10 bg-black/30 px-4 py-4 text-left hover:border-white/25 hover:bg-black/40 transition"
-              >
-                <div>
-                  <p className="text-sm text-white/70">WhatsApp</p>
-                  <p className="mt-1 font-medium">+{WHATSAPP}</p>
+                <div className="rounded-xl border border-white/10 bg-white/[0.04] p-2">
+                  <Sparkles className="h-4 w-4 text-white/60" />
                 </div>
-                <span className="text-xs text-white/50 group-hover:text-white/70">
-                  {copied === "wa" ? "Copied" : "Copy"}
-                </span>
-              </button>
+              </div>
 
-              <Link
-                href={GITHUB}
-                target="_blank"
-                className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/30 px-4 py-4 hover:border-white/25 hover:bg-black/40 transition"
-              >
-                <div>
-                  <p className="text-sm text-white/70">GitHub</p>
-                  <p className="mt-1 font-medium">Open profile</p>
-                </div>
-                <span className="text-xs text-white/50">→</span>
-              </Link>
+              <div className="space-y-3">
+                {/* Email */}
+                <button
+                  type="button"
+                  onClick={() => copy(EMAIL, "email")}
+                  className="group flex w-full items-center gap-4 rounded-2xl border border-white/8 bg-black/20 p-4 text-left transition-all duration-300 hover:border-white/15 hover:bg-white/[0.06]"
+                >
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05]">
+                    <Mail className="h-4 w-4 text-white/70" />
+                  </div>
 
-              <Link
-                href={LINKEDIN}
-                target="_blank"
-                className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/30 px-4 py-4 hover:border-white/25 hover:bg-black/40 transition"
-              >
-                <div>
-                  <p className="text-sm text-white/70">LinkedIn</p>
-                  <p className="mt-1 font-medium">Open profile</p>
-                </div>
-                <span className="text-xs text-white/50">→</span>
-              </Link>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[11px] uppercase tracking-wider text-white/35">
+                      Email
+                    </p>
 
-              <Link
-                href="/Mahesh_CV.pdf"
-                className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/30 px-4 py-4 hover:border-white/25 hover:bg-black/40 transition"
-              >
-                <div>
-                  <p className="text-sm text-white/70">Resume</p>
-                  <p className="mt-1 font-medium">Download</p>
-                </div>
-                <span className="text-xs text-white/50">↓</span>
-              </Link>
-            </div>
+                    <p className="mt-1 truncate text-sm text-white/85">
+                      {EMAIL}
+                    </p>
+                  </div>
 
-            <div className="mt-6 rounded-2xl border border-white/10 bg-black/30 p-4">
-              <p className="text-sm text-white/70">What I reply to</p>
-              <ul className="mt-3 space-y-2 text-sm text-white/70">
-                <li className="flex gap-2">
-                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white/60" />
-                  Clear scope and timeline
-                </li>
-                <li className="flex gap-2">
-                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white/60" />
-                  Budget or salary range
-                </li>
-                <li className="flex gap-2">
-                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-white/60" />
-                  Links or references
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Right panel */}
-          <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-sm text-white/70">Compose message</p>
-              <div className="flex flex-wrap gap-2">
-                {TOPICS.map((t) => (
-                  <button
-                    key={t}
-                    type="button"
-                    onClick={() => setTopic(t)}
-                    className={cn(
-                      "rounded-full border px-3 py-1 text-xs transition",
-                      t === topic
-                        ? "border-white/30 bg-white/10 text-white"
-                        : "border-white/10 bg-black/20 text-white/70 hover:border-white/25 hover:text-white"
+                  <div className="text-white/35 transition group-hover:text-white/70">
+                    {copied === "email" ? (
+                      <Check className="h-4 w-4 text-emerald-400" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
                     )}
-                  >
-                    {t}
-                  </button>
-                ))}
+                  </div>
+                </button>
+
+                {/* WhatsApp */}
+                <button
+                  type="button"
+                  onClick={() => copy(`+${WHATSAPP}`, "wa")}
+                  className="group flex w-full items-center gap-4 rounded-2xl border border-white/8 bg-black/20 p-4 text-left transition-all duration-300 hover:border-white/15 hover:bg-white/[0.06]"
+                >
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05]">
+                    <MessageCircle className="h-4 w-4 text-white/70" />
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[11px] uppercase tracking-wider text-white/35">
+                      WhatsApp
+                    </p>
+
+                    <p className="mt-1 text-sm text-white/85">
+                      +{WHATSAPP}
+                    </p>
+                  </div>
+
+                  <div className="text-white/35 transition group-hover:text-white/70">
+                    {copied === "wa" ? (
+                      <Check className="h-4 w-4 text-emerald-400" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
+                    )}
+                  </div>
+                </button>
+
+                {/* GitHub */}
+                <Link
+                  href={GITHUB}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 rounded-2xl border border-white/8 bg-black/20 p-4 transition-all duration-300 hover:border-white/15 hover:bg-white/[0.06]"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05]">
+                    <Github className="h-4 w-4 text-white/70" />
+                  </div>
+
+                  <div className="flex-1">
+                    <p className="text-[11px] uppercase tracking-wider text-white/35">
+                      GitHub
+                    </p>
+                    <p className="mt-1 text-sm text-white/85">
+                      View my projects
+                    </p>
+                  </div>
+
+                  <ArrowUpRight className="h-4 w-4 text-white/30 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white/70" />
+                </Link>
+
+                {/* LinkedIn */}
+                <Link
+                  href={LINKEDIN}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 rounded-2xl border border-white/8 bg-black/20 p-4 transition-all duration-300 hover:border-white/15 hover:bg-white/[0.06]"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05]">
+                    <Linkedin className="h-4 w-4 text-white/70" />
+                  </div>
+
+                  <div className="flex-1">
+                    <p className="text-[11px] uppercase tracking-wider text-white/35">
+                      LinkedIn
+                    </p>
+                    <p className="mt-1 text-sm text-white/85">
+                      Connect with me
+                    </p>
+                  </div>
+
+                  <ArrowUpRight className="h-4 w-4 text-white/30 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white/70" />
+                </Link>
+
+                {/* Resume */}
+                <Link
+                  href="/Mahesh_CV.pdf"
+                  className="group flex items-center gap-4 rounded-2xl border border-white/8 bg-black/20 p-4 transition-all duration-300 hover:border-white/15 hover:bg-white/[0.06]"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05]">
+                    <Download className="h-4 w-4 text-white/70" />
+                  </div>
+
+                  <div className="flex-1">
+                    <p className="text-[11px] uppercase tracking-wider text-white/35">
+                      Resume
+                    </p>
+                    <p className="mt-1 text-sm text-white/85">
+                      Download CV
+                    </p>
+                  </div>
+
+                  <Download className="h-4 w-4 text-white/30 transition group-hover:text-white/70" />
+                </Link>
               </div>
             </div>
 
-            <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {/* Response card */}
+            <div className="rounded-[28px] border border-white/10 bg-white/[0.025] p-5 backdrop-blur-xl">
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-400/10">
+                  <Check className="h-4 w-4 text-emerald-400" />
+                </div>
+
+                <div>
+                  <p className="text-sm font-medium">
+                    Good messages get good replies
+                  </p>
+                  <p className="mt-1 text-xs text-white/40">
+                    Include the important details.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-5 space-y-3 text-sm text-white/55">
+                {[
+                  "Project scope or role",
+                  "Timeline and requirements",
+                  "Budget or salary range",
+                  "Relevant links or references",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-3">
+                    <span className="h-1.5 w-1.5 rounded-full bg-white/35" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </aside>
+
+          {/* RIGHT FORM */}
+          <div className="rounded-[28px] border border-white/10 bg-white/[0.035] p-5 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-7">
+            {/* Form heading */}
+            <div className="flex flex-col gap-4 border-b border-white/8 pb-6 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <label className="text-xs text-white/60">Your name</label>
+                <p className="text-lg font-medium">
+                  Start a conversation
+                </p>
+
+                <p className="mt-1 text-sm text-white/40">
+                  Tell me what you&apos;re working on.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 text-xs text-white/40">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                Typically replies within 24h
+              </div>
+            </div>
+
+            {/* Topics */}
+            <div className="mt-6">
+              <label className="text-xs font-medium uppercase tracking-wider text-white/40">
+                What are you looking for?
+              </label>
+
+              <div className="mt-3 flex flex-wrap gap-2">
+                {TOPICS.map((item) => {
+                  const active = item === topic;
+
+                  return (
+                    <button
+                      key={item}
+                      type="button"
+                      onClick={() => setTopic(item)}
+                      className={cn(
+                        "rounded-full border px-4 py-2 text-xs font-medium transition-all duration-200",
+                        active
+                          ? "border-white/20 bg-white text-black"
+                          : "border-white/10 bg-white/[0.025] text-white/55 hover:border-white/20 hover:text-white"
+                      )}
+                    >
+                      {item}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Inputs */}
+            <div className="mt-7 grid gap-5 md:grid-cols-2">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="text-xs font-medium text-white/50"
+                >
+                  Your name
+                </label>
+
                 <input
+                  id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Enter Your name"
-                  className="mt-2 w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm outline-none focus:border-white/25"
+                  placeholder="John Doe"
+                  className="mt-2 h-12 w-full rounded-2xl border border-white/10 bg-black/25 px-4 text-sm text-white outline-none placeholder:text-white/20 transition-all focus:border-white/25 focus:bg-white/[0.04] focus:ring-4 focus:ring-white/[0.03]"
                 />
               </div>
 
               <div>
-                <label className="text-xs text-white/60">Your email</label>
+                <label
+                  htmlFor="email"
+                  className="text-xs font-medium text-white/50"
+                >
+                  Email address
+                </label>
+
                 <input
+                  id="email"
+                  type="email"
                   value={from}
                   onChange={(e) => setFrom(e.target.value)}
-                  placeholder="you@email.com"
-                  className="mt-2 w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm outline-none focus:border-white/25"
+                  placeholder="you@example.com"
+                  className="mt-2 h-12 w-full rounded-2xl border border-white/10 bg-black/25 px-4 text-sm text-white outline-none placeholder:text-white/20 transition-all focus:border-white/25 focus:bg-white/[0.04] focus:ring-4 focus:ring-white/[0.03]"
                 />
               </div>
 
               <div className="md:col-span-2">
-                <label className="text-xs text-white/60">Message</label>
+                <label
+                  htmlFor="message"
+                  className="text-xs font-medium text-white/50"
+                >
+                  Message
+                </label>
+
                 <textarea
+                  id="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Explain scope, timeline, budget, and links. Minimum 10 characters."
-                  rows={6}
-                  className="mt-2 w-full resize-none rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm outline-none focus:border-white/25"
+                  placeholder="Tell me about your project, role, requirements, timeline, or anything you'd like to discuss..."
+                  rows={7}
+                  className="mt-2 w-full resize-none rounded-2xl border border-white/10 bg-black/25 px-4 py-4 text-sm leading-6 text-white outline-none placeholder:text-white/20 transition-all focus:border-white/25 focus:bg-white/[0.04] focus:ring-4 focus:ring-white/[0.03]"
                 />
+
+                <div className="mt-2 flex justify-between text-[11px] text-white/25">
+                  <span>Minimum 10 characters</span>
+                  <span>{message.length} characters</span>
+                </div>
               </div>
             </div>
 
-            {/* Live preview */}
-            <div className="mt-6 rounded-2xl border border-white/10 bg-black/30 p-4">
-              <p className="text-xs text-white/60">Preview</p>
-              <p className="mt-2 text-sm text-white/80">
-                <span className="text-white/60">Subject:</span> {subject}
-              </p>
-              <div className="mt-3 whitespace-pre-wrap text-sm text-white/70">
-                {message.trim()
-                  ? message
-                  : "Write a real message. If you send one line like 'hi', you will be ignored."}
+            {/* Preview */}
+            <div className="mt-7 overflow-hidden rounded-2xl border border-white/8 bg-black/20">
+              <div className="border-b border-white/8 px-4 py-3">
+                <p className="text-[11px] font-medium uppercase tracking-wider text-white/35">
+                  Message preview
+                </p>
+              </div>
+
+              <div className="p-4">
+                <div className="flex flex-wrap gap-x-2 text-sm">
+                  <span className="text-white/35">Subject</span>
+                  <span className="text-white/75">{subject}</span>
+                </div>
+
+                <div className="mt-4 min-h-[70px] whitespace-pre-wrap text-sm leading-6 text-white/50">
+                  {message.trim()
+                    ? message
+                    : "Your message preview will appear here..."}
+                </div>
               </div>
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-3">
+            {/* Actions */}
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <a
                 href={mailtoHref}
-                className={cn(
-                  "inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-medium transition",
-                  canSend
-                    ? "bg-[#9B59B6] text-black hover:bg-[#FFB800]"
-                    : "bg-white/10 text-white/40 cursor-not-allowed"
-                )}
                 aria-disabled={!canSend}
                 onClick={(e) => {
                   if (!canSend) e.preventDefault();
                 }}
+                className={cn(
+                  "inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl px-5 text-sm font-medium transition-all duration-300",
+                  canSend
+                    ? "bg-white text-black hover:bg-white/90 hover:shadow-lg hover:shadow-white/10"
+                    : "cursor-not-allowed bg-white/10 text-white/25"
+                )}
               >
+                <Send className="h-4 w-4" />
                 Send Email
               </a>
 
               <a
-                href={waHref}
+                href={canSend ? waHref : undefined}
                 target="_blank"
-                className={cn(
-                  "inline-flex items-center justify-center rounded-2xl border px-5 py-3 text-sm font-medium transition",
-                  canSend
-                    ? "border-white/15 bg-white/5 text-white/90 hover:bg-white/10"
-                    : "border-white/10 bg-black/20 text-white/40 cursor-not-allowed"
-                )}
+                rel="noopener noreferrer"
                 aria-disabled={!canSend}
-                onClick={(e) => {
-                  
-                }}
+                className={cn(
+                  "inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl border px-5 text-sm font-medium transition-all duration-300",
+                  canSend
+                    ? "border-white/10 bg-white/[0.04] text-white hover:border-white/20 hover:bg-white/[0.08]"
+                    : "cursor-not-allowed border-white/8 bg-white/[0.02] text-white/25"
+                )}
               >
+                <MessageCircle className="h-4 w-4" />
                 WhatsApp
               </a>
+            </div>
 
-              <span className="ml-auto inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">
-                {canSend ? "Ready to send" : "Enter valid email and message"}
-              </span>
+            {/* Status */}
+            <div className="mt-4 flex items-center justify-center gap-2 text-xs text-white/30">
+              <span
+                className={cn(
+                  "h-1.5 w-1.5 rounded-full",
+                  canSend ? "bg-emerald-400" : "bg-white/20"
+                )}
+              />
+
+              {canSend
+                ? "Your message is ready to send."
+                : "Enter a valid email and message to continue."}
             </div>
           </div>
         </div>
-      </Container>
 
-      <style jsx>{`
-        @keyframes float {
-          0% { transform: translate(-50%, 0px); }
-          50% { transform: translate(-50%, 22px); }
-          100% { transform: translate(-50%, 0px); }
-        }
-        @keyframes float2 {
-          0% { transform: translate(0px, 0px); }
-          50% { transform: translate(-18px, -20px); }
-          100% { transform: translate(0px, 0px); }
-        }
-      `}</style>
+        {/* Bottom line */}
+        <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-white/8 pt-6 text-xs text-white/25 sm:flex-row">
+          <p>Mahesh Sain · Full Stack Developer</p>
+
+          <div className="flex items-center gap-4">
+            <Link
+              href="/projects"
+              className="transition hover:text-white/60"
+            >
+              View Projects
+            </Link>
+
+            <span className="h-1 w-1 rounded-full bg-white/20" />
+
+            <Link
+              href="/about"
+              className="transition hover:text-white/60"
+            >
+              About Me
+            </Link>
+          </div>
+        </div>
+      </Container>
     </section>
   );
 }

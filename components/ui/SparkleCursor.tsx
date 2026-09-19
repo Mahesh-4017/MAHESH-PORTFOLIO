@@ -15,55 +15,93 @@ type Ripple = {
 export default function LiquidCursor() {
   const ripplesRef = useRef<Ripple[]>([]);
   const hueRef = useRef(260);
+  const lastMoveRef = useRef(0);
 
   useEffect(() => {
+    // Respect users who prefer reduced motion
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReducedMotion) return;
+
     const canvas = document.createElement("canvas");
+
     canvas.style.position = "fixed";
     canvas.style.inset = "0";
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
     canvas.style.pointerEvents = "none";
     canvas.style.zIndex = "9999";
-    canvas.style.transform = "translate3d(0, 0, 9999px)";
-    canvas.style.transformStyle = "preserve-3d";
+    canvas.setAttribute("aria-hidden", "true");
+
     document.body.appendChild(canvas);
 
-    const ctx = canvas.getContext("2d", { alpha: true })!; // force non-null
+    const ctx = canvas.getContext("2d");
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    if (!ctx) {
+      canvas.remove();
+      return;
+    }
+
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+
       canvas.width = Math.floor(window.innerWidth * dpr);
       canvas.height = Math.floor(window.innerHeight * dpr);
+
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
+
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
     resize();
+
     window.addEventListener("resize", resize);
 
     function nextHue() {
-      hueRef.current = (hueRef.current + 4) % 460;
+      hueRef.current = (hueRef.current + 3) % 360;
       return hueRef.current;
     }
 
-    function addRipple(x: number, y: number, strong = false) {
+    function addRipple(
+      x: number,
+      y: number,
+      strong = false
+    ) {
       ripplesRef.current.push({
         x,
         y,
-        r: strong ? 8 : 4,
-        a: strong ? 0.5 : 0.5,
-        s: strong ? 9 : 6,
-        w: strong ? 6 : 3,
+        r: strong ? 5 : 2,
+        a: strong ? 0.55 : 0.32,
+        s: strong ? 5.5 : 3.5,
+        w: strong ? 3 : 2,
         hue: nextHue(),
       });
 
-      if (ripplesRef.current.length > 50) {
-        ripplesRef.current.shift();
+      // Prevent too many particles
+      if (ripplesRef.current.length > 35) {
+        ripplesRef.current.splice(
+          0,
+          ripplesRef.current.length - 35
+        );
       }
     }
 
     function onMove(e: PointerEvent) {
-      addRipple(e.clientX, e.clientY, false);
+      const now = performance.now();
+
+      // Limit ripple creation for better performance
+      if (now - lastMoveRef.current < 22) {
+        return;
+      }
+
+      lastMoveRef.current = now;
+
+      addRipple(e.clientX, e.clientY);
     }
 
     function onDown(e: PointerEvent) {
@@ -71,48 +109,85 @@ export default function LiquidCursor() {
       addRipple(e.clientX, e.clientY, true);
     }
 
-    window.addEventListener("pointermove", onMove, { passive: true });
-    window.addEventListener("pointerdown", onDown, { passive: true });
+    window.addEventListener("pointermove", onMove, {
+      passive: true,
+    });
 
-    let raf = 0;
+    window.addEventListener("pointerdown", onDown, {
+      passive: true,
+    });
+
+    let animationFrame = 0;
 
     function draw() {
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+      );
 
       ctx.save();
+
       ctx.globalCompositeOperation = "lighter";
-      ctx.filter = "blur(0.1px)";
 
       const ripples = ripplesRef.current;
 
       for (let i = ripples.length - 1; i >= 0; i--) {
-        const p = ripples[i];
+        const ripple = ripples[i];
 
-        p.r += p.s;
-        p.a -= 0.02;
+        ripple.r += ripple.s;
+        ripple.a -= 0.018;
+
+        if (ripple.a <= 0) {
+          ripples.splice(i, 1);
+          continue;
+        }
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.strokeStyle = `hsla(270, 100%, 70%, ${Math.max(p.a * 1.5, 0)})`;
-        ctx.lineWidth = p.w;
-        ctx.stroke();
 
-        if (p.a <= 0) {
-          ripples.splice(i, 1);
-        }
+        ctx.arc(
+          ripple.x,
+          ripple.y,
+          ripple.r,
+          0,
+          Math.PI * 2
+        );
+
+        ctx.strokeStyle = `hsla(
+          ${ripple.hue},
+          90%,
+          70%,
+          ${ripple.a}
+        )`;
+
+        ctx.lineWidth = ripple.w;
+
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = `hsla(
+          ${ripple.hue},
+          90%,
+          65%,
+          ${ripple.a * 0.8}
+        )`;
+
+        ctx.stroke();
       }
 
       ctx.restore();
-      raf = requestAnimationFrame(draw);
+
+      animationFrame = requestAnimationFrame(draw);
     }
 
-    raf = requestAnimationFrame(draw);
+    animationFrame = requestAnimationFrame(draw);
 
     return () => {
-      cancelAnimationFrame(raf);
+      cancelAnimationFrame(animationFrame);
+
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerdown", onDown);
+
       canvas.remove();
     };
   }, []);

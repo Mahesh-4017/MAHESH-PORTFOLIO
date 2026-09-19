@@ -19,6 +19,62 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "3D Saturn Website",
+    slug: "3d-saturn-website",
+    description:
+      "An immersive 3D interactive website featuring a photorealistic Saturn WebGL experience, smooth scrolling animations, dynamic particle effects, and a modern interactive interface.",
+    summary:
+      "An immersive WebGL experience featuring an interactive 3D Saturn, particles, and smooth scroll animations.",
+    year: "2026",
+    role: "Frontend Developer",
+    stack: ["TypeScript", "WebGL", "Three.js"],
+    features: [
+      "Interactive 3D Saturn experience",
+      "WebGL-powered visual presentation",
+      "Dynamic particle effects",
+      "Smooth scroll animations",
+      "Modern interactive UI",
+      "Responsive experience",
+    ],
+    highlights: [
+      "Immersive 3D WebGL experience",
+      "Interactive particle effects",
+      "Smooth cinematic scrolling",
+    ],
+    cover: "/projects/saturn-cover.png",
+    images: ["/projects/saturn-cover.png"],
+    githubUrl: "https://github.com/Mahesh-4017/3d-saturn-website",
+    liveUrl: "https://3d-saturn-website-01.netlify.app/",
+  },
+
+  {
+    title: "GlobalMart - Modern E-Commerce Web Application",
+    slug: "globalmart-ecommerce",
+    description:
+      "A modern and responsive e-commerce web application designed for browsing products, managing a shopping cart, and providing users with a smooth online shopping experience.",
+    summary:
+      "A modern responsive e-commerce platform with product browsing, cart management, and interactive shopping features.",
+    year: "2026",
+    role: "Full Stack Developer",
+    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    features: [
+      "Product browsing interface",
+      "Shopping cart management",
+      "Responsive e-commerce layout",
+      "Interactive product sections",
+      "Modern shopping experience",
+    ],
+    highlights: [
+      "Responsive e-commerce architecture",
+      "Component-driven UI",
+      "Smooth and modern shopping experience",
+    ],
+    cover: "/projects/globalmart-cover.png",
+    images: ["/projects/globalmart-cover.png"],
+    githubUrl:
+      "https://github.com/Mahesh-4017/GlobalMart-Modern-E-Commerce-Web-Application",
+      liveUrl:"https://globalmart-modern-e-commerce-web-app.netlify.app/",
+  },{
     title: "Food Ordering App UI",
     slug: "food-website",
     description:
@@ -490,6 +546,62 @@ export const projects: Project[] = [
     ],
     githubUrl: "https://github.com/Mahesh-4017/job-portal-ui",
     liveUrl: "http://bloomfield.bloomfieldcollege.net/",
+  },
+   {
+    title: "Vibely - Share Connect Vibe",
+    slug: "vibely-share-connect-vibe",
+    description:
+      "An interactive social encyclopedia and community-sharing platform designed for content creators, researchers, and tech enthusiasts. Vibely combines community micro-posts, knowledge sharing, and deep-dive content in a modern interactive experience.",
+    summary:
+      "A modern community platform combining social micro-posts, knowledge sharing, and interactive content discovery.",
+    year: "2026",
+    role: "Frontend Developer",
+    stack: ["HTML", "CSS", "JavaScript"],
+    features: [
+      "Community micro-post sharing",
+      "Interactive content discovery",
+      "Knowledge and research-focused content sections",
+      "Responsive community interface",
+    ],
+    highlights: [
+      "Modern social-community interface",
+      "Content-focused user experience",
+      "Responsive and interactive frontend",
+    ],
+    cover: "/projects/vibely-cover.png",
+    images: ["/projects/vibely-cover.png"],
+    githubUrl:
+      "https://github.com/Mahesh-4017/Vibely---Share-Connect-Vibe-",
+    liveUrl: "",
+  },
+
+  {
+    title: "Amazon Clone",
+    slug: "amazon-clone",
+    description:
+      "A modern Amazon-inspired e-commerce interface built with HTML5, CSS3, and JavaScript. The project features a responsive shopping experience with 3D card effects, sticky navigation, an interactive product interface, and a Prime Video-inspired streaming section.",
+    summary:
+      "A responsive Amazon-inspired e-commerce interface with interactive UI, 3D effects, and streaming features.",
+    year: "2026",
+    role: "Frontend Developer",
+    stack: ["HTML5", "CSS3", "JavaScript"],
+    features: [
+      "Amazon-inspired product interface",
+      "3D card tilt and parallax effects",
+      "Sticky dual-header navigation",
+      "Interactive shopping sections",
+      "Prime Video-inspired streaming portal",
+      "Responsive layout",
+    ],
+    highlights: [
+      "Interactive 3D UI effects",
+      "Responsive e-commerce layout",
+      "Modern JavaScript interactions",
+    ],
+    cover: "/projects/amazon-cover.png",
+    images: ["/projects/amazon-cover.png"],
+    githubUrl: "https://github.com/Mahesh-4017/Amazon-clone",
+    liveUrl: "https://amazon-clone-03.netlify.app/",
   },
 ];
 

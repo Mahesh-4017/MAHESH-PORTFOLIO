@@ -8,10 +8,12 @@ import Workspace from "@/components/Sections/Workspace";
 import FeaturedContent from "@/components/Sections/FeaturedContent";
 import SimpleCTA from "@/components/Sections/SimpleCTA";
 import Reveal from "@/components/ui/Reveal";
+import CustomCursor from "@/components/ui/CustomCursor"
 
 export default function HomePage() {
   return (
     <Container className="space-y-10 pb-24">
+      <CustomCursor />
       {/* Hero Section */}
       <Reveal>
         <Hero />

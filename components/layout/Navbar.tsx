@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Container from "./Container";
 import { site } from "@/content/site";
-import { Github, Linkedin, Instagram, Search, LogIn } from "lucide-react";
+import { Github, Linkedin, Instagram, Search, LogIn, ArrowUpRight } from "lucide-react";
 import "@/app/globals.css";
 
 const nav = [
@@ -92,15 +92,16 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* RESUME BUTTON */}
-            <a
-              href="/Mahesh_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 px-4 py-2 text-sm font-semibold text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(168,85,247,0.9)] md:inline-flex"
-            >
-              Resume
-            </a>
+           {/* RESUME BUTTON */}
+<a
+  href="/Mahesh_Resume.pdf"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-xl transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:text-white md:inline-flex"
+>
+  Resume
+  <ArrowUpRight className="h-4 w-4" />
+</a>
 
             {/* LOGIN ICON */}
             <Link
